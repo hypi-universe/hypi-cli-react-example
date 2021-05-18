@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Getting Started with Hypi cli ReactJS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* [Available commands](#available-commands)
+* [Getting started](#getting-started)
 
-## Available Scripts
+## Install hypi cli
 
-In the project directory, you can run:
+```$ npm install -g @hypi/cli```
 
-### `npm start`
+## Available commands
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `hypi login` 
 
-### `npm test`
+```hypi login``` 
+Login with user name and password
+```hypi login -d``` 
+Login with organization name space and Authorization token from here https://hypi.app/developer-hub
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `hypi init`
 
-### `npm run build`
+```hypi init```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ Initialize your app and instance or refernece an existing domain
+.hypi folder will be created with app.yaml, instance.yaml and schema.graphql files
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `hypi sync`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```hypi sync reactjs```
 
-### `npm run eject`
+will sync your local schema and get the full schema, then genearte graphql reactjs schema file
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Getting started
+1. Inside yoir ReactJs project, run ```hypi login``` 
+   Afetr login, user config folder will be placed in `~/.config/hypi/config.json`
+2. Run ```hypi init``` to initialize your app or refernece an existing domain
+.hypi folder will be created with `app.yaml`, `instance.yaml` and `schema.graphql`
+3. Write your schema inside `schema.graphql`
+4. Write your queries and mutations inside `/src/graphql` and then run `hypi sync` to generate the Reactjs schema
+   The full generated schema will be inside .hypi folder `/.hypi/generated-schema.graphql`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. The genearted graphql ReactJs schema will be inside `/src/generated/graphql.ts`
