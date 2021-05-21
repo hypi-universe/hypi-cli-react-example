@@ -963,6 +963,19 @@ export type CoordinateInput = {
   y: Scalars['Float'];
 };
 
+export type WorkflowOrderedInputOpt = {
+  execAs?: Maybe<Scalars['String']>;
+  async?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  fn?: Maybe<GraphQlRefInputOpt>;
+  maxExecutionTime?: Maybe<Scalars['String']>;
+  repeatN?: Maybe<Scalars['Int']>;
+  hypi?: Maybe<HypiInputOpt>;
+  evaluateIf?: Maybe<GraphQlRefInputOpt>;
+  order?: Maybe<Scalars['Int']>;
+  repeatIf?: Maybe<GraphQlRefInputOpt>;
+};
+
 /** All fields defined by HypiEnv */
 export enum HypiEnvFields {
   Hypi = 'hypi',
@@ -976,19 +989,6 @@ export enum HypiEnvFields {
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId'
 }
-
-export type WorkflowOrderedInputOpt = {
-  execAs?: Maybe<Scalars['String']>;
-  async?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  fn?: Maybe<GraphQlRefInputOpt>;
-  maxExecutionTime?: Maybe<Scalars['String']>;
-  repeatN?: Maybe<Scalars['Int']>;
-  hypi?: Maybe<HypiInputOpt>;
-  evaluateIf?: Maybe<GraphQlRefInputOpt>;
-  order?: Maybe<Scalars['Int']>;
-  repeatIf?: Maybe<GraphQlRefInputOpt>;
-};
 
 export type OAuthProvider = {
   __typename?: 'OAuthProvider';
@@ -6141,6 +6141,19 @@ export type RoleInput = {
   accounts?: Maybe<Array<AccountInput>>;
 };
 
+export type TimePolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  from?: Maybe<Scalars['DateTime']>;
+  to?: Maybe<Scalars['DateTime']>;
+  clients?: Maybe<Array<AuthClientInput>>;
+  roles?: Maybe<Array<RoleInput>>;
+  groups?: Maybe<Array<GroupInput>>;
+  accounts?: Maybe<Array<AccountInput>>;
+  realms?: Maybe<Array<RealmLinkInput>>;
+  name: Scalars['String'];
+  logic?: Maybe<AuthLogic>;
+};
+
 /** All fields defined by Product */
 export enum ProductFields {
   Hypi = 'hypi',
@@ -6155,19 +6168,6 @@ export enum ProductFields {
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId'
 }
-
-export type TimePolicyInput = {
-  hypi?: Maybe<HypiInput>;
-  from?: Maybe<Scalars['DateTime']>;
-  to?: Maybe<Scalars['DateTime']>;
-  clients?: Maybe<Array<AuthClientInput>>;
-  roles?: Maybe<Array<RoleInput>>;
-  groups?: Maybe<Array<GroupInput>>;
-  accounts?: Maybe<Array<AccountInput>>;
-  realms?: Maybe<Array<RealmLinkInput>>;
-  name: Scalars['String'];
-  logic?: Maybe<AuthLogic>;
-};
 
 export type WorkflowInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
@@ -8361,6 +8361,25 @@ export type EmailVerificationGroupByOptions = {
   dateGranularity?: Maybe<TimeUnit>;
 };
 
+/** All fields defined by Language */
+export enum LanguageFields {
+  Hypi = 'hypi',
+  Family = 'family',
+  IsoName = 'isoName',
+  NativeName = 'nativeName',
+  Iso6391Code = 'iso6391Code',
+  Iso6392TCode = 'iso6392TCode',
+  Iso6392BCode = 'iso6392BCode',
+  Iso6393Code = 'iso6393Code',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId'
+}
+
 /** Scalar fields defined by AggInt */
 export enum AggIntScalarFields {
   Avg = 'avg',
@@ -8379,25 +8398,6 @@ export enum AggIntScalarFields {
   GroupValuesKey = 'groupValues_key',
   /** The value of the aggregated field for each group */
   GroupValuesValue = 'groupValues_value'
-}
-
-/** All fields defined by Language */
-export enum LanguageFields {
-  Hypi = 'hypi',
-  Family = 'family',
-  IsoName = 'isoName',
-  NativeName = 'nativeName',
-  Iso6391Code = 'iso6391Code',
-  Iso6392TCode = 'iso6392TCode',
-  Iso6392BCode = 'iso6392BCode',
-  Iso6393Code = 'iso6393Code',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
 }
 
 export type Policy = {
@@ -8973,13 +8973,6 @@ export type OAuth2AuthorizedClientInput = {
   refreshToken?: Maybe<Scalars['String']>;
 };
 
-export type AccountPolicyInput = {
-  hypi?: Maybe<HypiInput>;
-  accounts?: Maybe<Array<AccountInput>>;
-  name: Scalars['String'];
-  logic?: Maybe<AuthLogic>;
-};
-
 /** All fields defined by Permission */
 export enum PermissionFields {
   Hypi = 'hypi',
@@ -9018,6 +9011,13 @@ export enum PermissionFields {
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId'
 }
+
+export type AccountPolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  accounts?: Maybe<Array<AccountInput>>;
+  name: Scalars['String'];
+  logic?: Maybe<AuthLogic>;
+};
 
 export type WorkflowSessionInputOpt = {
   hypi?: Maybe<HypiInputOpt>;

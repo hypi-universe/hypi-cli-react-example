@@ -36,7 +36,7 @@ will sync your local schema and get the full schema, then genearte graphql react
 2. Run ```hypi init``` to initialize your app or refernece an existing domain
 .hypi folder will be created with `app.yaml`, `instance.yaml` and `schema.graphql`
 3. Write your schema inside `schema.graphql`
-4. Write your queries and mutations inside `/src/graphql` and then run `hypi sync` to generate the Reactjs schema
+4. Write your queries and mutations inside `/src/graphql` and then run `hypi sync reactjs` to generate the Reactjs schema
    The full generated schema will be inside .hypi folder `/.hypi/generated-schema.graphql`
 
 5. The genearted graphql ReactJs schema will be inside `/src/generated/graphql.ts`
