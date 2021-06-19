@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { useProductsQuery, useDeleteMutation } from '../../generated/graphql'
 
 import { Link } from "react-router-dom";
@@ -7,18 +7,19 @@ const ProductsList = (props) => {
   const { loading, error, data } = useProductsQuery({
     variables: { arcql: '*' },
   });
-  const [deleteMutation] = useDeleteMutation()
 
+  const [deleteMutation] = useDeleteMutation()
+ 
   if (loading) return <p>loading...</p>;
   if (error) return <p>{error}</p>;
 
   const handleRemove = (event, id) => {
-    console.log(id)
     deleteMutation({
       variables: {
         arcql: "hypi.id = '" + id + "'"
       }
     })
+    window.location.reload();
   }
 
   const productsOutput = data.find.edges.length === 0 ?
