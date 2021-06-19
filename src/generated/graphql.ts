@@ -116,6 +116,7 @@ export type QueryFindArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -168,7 +169,9 @@ export enum PersonNameFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type Product = {
@@ -269,7 +272,9 @@ export enum FileFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type PhoneAggs = {
@@ -396,7 +401,9 @@ export enum GroupFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** All fields defined by Country */
@@ -420,7 +427,9 @@ export enum CountryFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** All fields defined by RealmLink */
@@ -434,7 +443,9 @@ export enum RealmLinkFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /**
@@ -465,7 +476,7 @@ export type EmailSendingAttemptAggs = {
 };
 
 /** A union of all types in the app which can be created or updated directly */
-export type HypiRootAggregate = Product | Hypi | PageInfo | HypiResultEdge | HypiFilterConnection | HypiEnv | Pair | AggInt | AggFloat | AggOtherScalar | Script | RequestTemplate | NotificationCtx | Notification | Url | Currency | Coordinate | GeoEnvelope | Language | Address | PersonName | Phone | Email | Password | RemoteLogin | LoginAttempt | BruteForceDetectionOptions | OAuth2AuthorizedClient | AuthClient | Image | EmailVerification | EmailTemplate | EmailSendingAttempt | PasswordReminder | Webhook | WebhookResponse | LogMessage | GraphQlRef | WorkflowStepData | WorkflowStep | AccessToken | PermissionDescription | Country | Account | Person | Organisation | OAuthProvider | Realm | Group | Role | RolePolicy | ClientPolicy | TimePolicy | AggregatedPolicy | GroupPolicy | AccountPolicy | RealmPolicy | RealmLink | Permission | File | Video | EmailMessage | Workflow | WorkflowSession | Counter | Gauge | ServerlessResponse;
+export type HypiRootAggregate = Product | PageInfo | HypiResultEdge | HypiFilterConnection | HypiEnv | Pair | AggInt | AggFloat | AggOtherScalar | Script | RequestTemplate | NotificationCtx | Notification | Url | Currency | Coordinate | GeoEnvelope | Language | Address | PersonName | Phone | Email | Password | RemoteLogin | LoginAttempt | BruteForceDetectionOptions | OAuth2AuthorizedClient | AuthClient | AbacPolicy | AbacTag | Image | EmailVerification | EmailTemplate | EmailSendingAttempt | PasswordReminder | Webhook | WebhookResponse | LogMessage | GraphQlRef | WorkflowStepData | WorkflowStep | AccessToken | StorageCounter | PermissionDescription | Hypi | Country | Account | Person | Organisation | OAuthProvider | Realm | Group | Role | RolePolicy | ClientPolicy | TimePolicy | AggregatedPolicy | GroupPolicy | AccountPolicy | RealmPolicy | RealmLink | Permission | File | Video | EmailMessage | Workflow | WorkflowSession | Counter | Gauge | ServerlessResponse;
 
 /** An object available as "env" in all scripts */
 export type HypiEnv = {
@@ -520,7 +531,9 @@ export enum VideoFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type OAuth2AuthorizedClientGroupByOptions = {
@@ -687,6 +700,29 @@ export type AggregatedPolicyPoliciesArgs = {
   before?: Maybe<Scalars['String']>;
 };
 
+export type AbacPolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  from?: Maybe<Scalars['DateTime']>;
+  to?: Maybe<Scalars['DateTime']>;
+  givenInstance?: Maybe<Scalars['String']>;
+  givenType: Scalars['String'];
+  givenOperation: Scalars['String'];
+  givenFn?: Maybe<Scalars['String']>;
+  givenFnPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagKeyEq?: Maybe<Scalars['String']>;
+  whenResourceTagKeyPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagValueEq?: Maybe<Scalars['String']>;
+  whenResourceTagValuePrefix?: Maybe<Scalars['String']>;
+  assertAccountIdEq?: Maybe<Scalars['String']>;
+  assertAccountUsernamePrefix?: Maybe<Scalars['String']>;
+  assertAccountTagKeyEq?: Maybe<Scalars['String']>;
+  assertAccountTagKeyPrefix?: Maybe<Scalars['String']>;
+  assertAccountTagValEq?: Maybe<Scalars['String']>;
+  assertAccountTagValPrefix?: Maybe<Scalars['String']>;
+  boundary?: Maybe<PolicyBoundary>;
+  allowedFields?: Maybe<Scalars['String']>;
+};
+
 /** All fields defined by Phone */
 export enum PhoneFields {
   Hypi = 'hypi',
@@ -699,7 +735,9 @@ export enum PhoneFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type AccountGroupByOptions = {
@@ -754,14 +792,25 @@ export type ServerlessResponseAttributesArgs = {
   before?: Maybe<Scalars['String']>;
 };
 
+export type StorageCounterInputOpt = {
+  hypi?: Maybe<HypiInputOpt>;
+  type?: Maybe<Scalars['String']>;
+  field?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Int']>;
+};
+
+/** @deprecated - to be removed */
 export type RealmLink = {
   __typename?: 'RealmLink';
   hypi?: Maybe<Hypi>;
+  /** @deprecated RealmLink will be removed in a future version */
   name: Scalars['String'];
+  /** @deprecated RealmLink will be removed in a future version */
   accounts: Array<Account>;
 };
 
 
+/** @deprecated - to be removed */
 export type RealmLinkAccountsArgs = {
   arcql?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -783,8 +832,16 @@ export enum RolePolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
+
+export type WorkflowStepDataInput = {
+  hypi?: Maybe<HypiInput>;
+  stepName: Scalars['String'];
+  stepResult: Scalars['Any'];
+};
 
 /** All fields defined by Workflow */
 export enum WorkflowFields {
@@ -822,6 +879,8 @@ export enum WorkflowFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   EvaluateIfHypi = 'evaluateIf_hypi',
   EvaluateIfType = 'evaluateIf_type',
   EvaluateIfField = 'evaluateIf_field',
@@ -832,10 +891,85 @@ export enum WorkflowFields {
   RepeatIfSelection = 'repeatIf_selection'
 }
 
-export type WorkflowStepDataInput = {
-  hypi?: Maybe<HypiInput>;
-  stepName: Scalars['String'];
-  stepResult: Scalars['Any'];
+/** All fields defined by ABACPolicy */
+export enum AbacPolicyFields {
+  Hypi = 'hypi',
+  From = 'from',
+  To = 'to',
+  /**
+   * The instance the policy applies to. By default the same instance in which it exists.
+   * A `Platform Admin` can set it to *, all other users get permission denied if this is not the same as their current instance.
+   */
+  GivenInstance = 'givenInstance',
+  /** e.g. Account or * */
+  GivenType = 'givenType',
+  /** Exactly one of Query|Mutation|Subscription|* */
+  GivenOperation = 'givenOperation',
+  /** The exact function name or wildcard e.g. find|upsert|* */
+  GivenFn = 'givenFn',
+  /** The prefix that any function can begin with e.g. find will match findX, findY, findOther */
+  GivenFnPrefix = 'givenFnPrefix',
+  WhenResourceTagKeyEq = 'whenResourceTagKeyEq',
+  WhenResourceTagKeyPrefix = 'whenResourceTagKeyPrefix',
+  WhenResourceTagValueEq = 'whenResourceTagValueEq',
+  WhenResourceTagValuePrefix = 'whenResourceTagValuePrefix',
+  /** Policy applies when the account ID is equal to this */
+  AssertAccountIdEq = 'assertAccountIdEq',
+  /** Policy applies when the account username starts with this */
+  AssertAccountUsernamePrefix = 'assertAccountUsernamePrefix',
+  /** When set, the account MUST have a tag whose key is equal to this */
+  AssertAccountTagKeyEq = 'assertAccountTagKeyEq',
+  /** When set, the account MUST have a tag whose key is starts with this */
+  AssertAccountTagKeyPrefix = 'assertAccountTagKeyPrefix',
+  /** When set, the account MUST have a tag whose value is equal to this */
+  AssertAccountTagValEq = 'assertAccountTagValEq',
+  /** When set, the account MUST have a tag whose value is starts with this */
+  AssertAccountTagValPrefix = 'assertAccountTagValPrefix',
+  /**
+   * Resource owner can set the boundary to RESOURCE (or anyone that has permission to do so)
+   * System Admin for the instance can set the boundary to INSTANCE
+   * Platform Admin can set the boundary to PLATFORM
+   * PLATFORM|INSTANCE|RESOURCE
+   */
+  Boundary = 'boundary',
+  /**
+   * If provided, this is a comma separate list of field paths that are allowed by this policy
+   * e.g. a,b.c allows access to a and all sub-fields below it as well as to the field c under the parent field b. No other field under b is allowed
+   * If the policy is allowing read access, only these fields can be seen. If it is write acces, only these fields can be modified.
+   */
+  AllowedFields = 'allowedFields',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
+}
+
+export type AbacPolicyInputOpt = {
+  hypi?: Maybe<HypiInputOpt>;
+  from?: Maybe<Scalars['DateTime']>;
+  to?: Maybe<Scalars['DateTime']>;
+  givenInstance?: Maybe<Scalars['String']>;
+  givenType?: Maybe<Scalars['String']>;
+  givenOperation?: Maybe<Scalars['String']>;
+  givenFn?: Maybe<Scalars['String']>;
+  givenFnPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagKeyEq?: Maybe<Scalars['String']>;
+  whenResourceTagKeyPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagValueEq?: Maybe<Scalars['String']>;
+  whenResourceTagValuePrefix?: Maybe<Scalars['String']>;
+  assertAccountIdEq?: Maybe<Scalars['String']>;
+  assertAccountUsernamePrefix?: Maybe<Scalars['String']>;
+  assertAccountTagKeyEq?: Maybe<Scalars['String']>;
+  assertAccountTagKeyPrefix?: Maybe<Scalars['String']>;
+  assertAccountTagValEq?: Maybe<Scalars['String']>;
+  assertAccountTagValPrefix?: Maybe<Scalars['String']>;
+  boundary?: Maybe<PolicyBoundary>;
+  allowedFields?: Maybe<Scalars['String']>;
 };
 
 /** Scalar fields defined by Notification */
@@ -917,16 +1051,19 @@ export type PolicyInputOpt = {
   decisionStrategy?: Maybe<DecisionStrategy>;
 };
 
+/** @deprecated - to be removed */
 export type RealmPolicy = Policy & {
   __typename?: 'RealmPolicy';
   hypi?: Maybe<Hypi>;
   name: Scalars['String'];
   /** Positive` or `Negative */
   logic?: Maybe<AuthLogic>;
+  /** @deprecated RealmPolicy will be removed in a future version */
   realms?: Maybe<Array<RealmLink>>;
 };
 
 
+/** @deprecated - to be removed */
 export type RealmPolicyRealmsArgs = {
   arcql?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -963,6 +1100,22 @@ export type CoordinateInput = {
   y: Scalars['Float'];
 };
 
+/** All fields defined by HypiEnv */
+export enum HypiEnvFields {
+  Hypi = 'hypi',
+  ApiHost = 'apiHost',
+  WebsocketHost = 'websocketHost',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
+}
+
 export type WorkflowOrderedInputOpt = {
   execAs?: Maybe<Scalars['String']>;
   async?: Maybe<Scalars['Boolean']>;
@@ -975,20 +1128,6 @@ export type WorkflowOrderedInputOpt = {
   order?: Maybe<Scalars['Int']>;
   repeatIf?: Maybe<GraphQlRefInputOpt>;
 };
-
-/** All fields defined by HypiEnv */
-export enum HypiEnvFields {
-  Hypi = 'hypi',
-  ApiHost = 'apiHost',
-  WebsocketHost = 'websocketHost',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
-}
 
 export type OAuthProvider = {
   __typename?: 'OAuthProvider';
@@ -1083,8 +1222,40 @@ export enum RealmFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
+
+export type AbacPolicyAggs = {
+  __typename?: 'ABACPolicyAggs';
+  from?: Maybe<AggOtherScalar>;
+  to?: Maybe<AggOtherScalar>;
+  givenInstance?: Maybe<AggOtherScalar>;
+  givenType?: Maybe<AggOtherScalar>;
+  givenOperation?: Maybe<AggOtherScalar>;
+  givenFn?: Maybe<AggOtherScalar>;
+  givenFnPrefix?: Maybe<AggOtherScalar>;
+  whenResourceTagKeyEq?: Maybe<AggOtherScalar>;
+  whenResourceTagKeyPrefix?: Maybe<AggOtherScalar>;
+  whenResourceTagValueEq?: Maybe<AggOtherScalar>;
+  whenResourceTagValuePrefix?: Maybe<AggOtherScalar>;
+  assertAccountIdEq?: Maybe<AggOtherScalar>;
+  assertAccountUsernamePrefix?: Maybe<AggOtherScalar>;
+  assertAccountTagKeyEq?: Maybe<AggOtherScalar>;
+  assertAccountTagKeyPrefix?: Maybe<AggOtherScalar>;
+  assertAccountTagValEq?: Maybe<AggOtherScalar>;
+  assertAccountTagValPrefix?: Maybe<AggOtherScalar>;
+  boundary?: Maybe<AggOtherScalar>;
+  allowedFields?: Maybe<AggOtherScalar>;
+  hypi_id?: Maybe<AggOtherScalar>;
+  hypi_impl?: Maybe<AggOtherScalar>;
+  hypi_created?: Maybe<AggOtherScalar>;
+  hypi_updated?: Maybe<AggOtherScalar>;
+  hypi_trashed?: Maybe<AggOtherScalar>;
+  hypi_createdBy?: Maybe<AggOtherScalar>;
+  hypi_instanceId?: Maybe<AggOtherScalar>;
+};
 
 export type EmailTemplateInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
@@ -1135,11 +1306,62 @@ export enum WorkflowSessionFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type CounterMaths = {
   value?: Maybe<MathInputFloat>;
+};
+
+export type AbacPolicy = {
+  __typename?: 'ABACPolicy';
+  hypi?: Maybe<Hypi>;
+  from?: Maybe<Scalars['DateTime']>;
+  to?: Maybe<Scalars['DateTime']>;
+  /**
+   * The instance the policy applies to. By default the same instance in which it exists.
+   * A `Platform Admin` can set it to *, all other users get permission denied if this is not the same as their current instance.
+   */
+  givenInstance?: Maybe<Scalars['String']>;
+  /** e.g. Account or * */
+  givenType: Scalars['String'];
+  /** Exactly one of Query|Mutation|Subscription|* */
+  givenOperation: Scalars['String'];
+  /** The exact function name or wildcard e.g. find|upsert|* */
+  givenFn?: Maybe<Scalars['String']>;
+  /** The prefix that any function can begin with e.g. find will match findX, findY, findOther */
+  givenFnPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagKeyEq?: Maybe<Scalars['String']>;
+  whenResourceTagKeyPrefix?: Maybe<Scalars['String']>;
+  whenResourceTagValueEq?: Maybe<Scalars['String']>;
+  whenResourceTagValuePrefix?: Maybe<Scalars['String']>;
+  /** Policy applies when the account ID is equal to this */
+  assertAccountIdEq?: Maybe<Scalars['String']>;
+  /** Policy applies when the account username starts with this */
+  assertAccountUsernamePrefix?: Maybe<Scalars['String']>;
+  /** When set, the account MUST have a tag whose key is equal to this */
+  assertAccountTagKeyEq?: Maybe<Scalars['String']>;
+  /** When set, the account MUST have a tag whose key is starts with this */
+  assertAccountTagKeyPrefix?: Maybe<Scalars['String']>;
+  /** When set, the account MUST have a tag whose value is equal to this */
+  assertAccountTagValEq?: Maybe<Scalars['String']>;
+  /** When set, the account MUST have a tag whose value is starts with this */
+  assertAccountTagValPrefix?: Maybe<Scalars['String']>;
+  /**
+   * Resource owner can set the boundary to RESOURCE (or anyone that has permission to do so)
+   * System Admin for the instance can set the boundary to INSTANCE
+   * Platform Admin can set the boundary to PLATFORM
+   * PLATFORM|INSTANCE|RESOURCE
+   */
+  boundary?: Maybe<PolicyBoundary>;
+  /**
+   * If provided, this is a comma separate list of field paths that are allowed by this policy
+   * e.g. a,b.c allows access to a and all sub-fields below it as well as to the field c under the parent field b. No other field under b is allowed
+   * If the policy is allowing read access, only these fields can be seen. If it is write acces, only these fields can be modified.
+   */
+  allowedFields?: Maybe<Scalars['String']>;
 };
 
 export type GraphQlRefInputOpt = {
@@ -1171,7 +1393,6 @@ export type PermissionAggs = {
   resource?: Maybe<AggOtherScalar>;
   operationType?: Maybe<AggOtherScalar>;
   includeAllAccounts?: Maybe<AggOtherScalar>;
-  targetInstance?: Maybe<AggOtherScalar>;
   scopes?: Maybe<AggOtherScalar>;
   operations?: Maybe<AggOtherScalar>;
   hypi_id?: Maybe<AggOtherScalar>;
@@ -1319,6 +1540,12 @@ export type VideoThumbnailsArgs = {
   before?: Maybe<Scalars['String']>;
 };
 
+export type AbacTagInputOpt = {
+  hypi?: Maybe<HypiInputOpt>;
+  key?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
 /** All fields defined by Password */
 export enum PasswordFields {
   Hypi = 'hypi',
@@ -1334,7 +1561,9 @@ export enum PasswordFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type ProductGroupByOptions = {
@@ -1563,7 +1792,9 @@ export enum CurrencyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type OAuthProviderGroupByOptions = {
@@ -1727,7 +1958,9 @@ export enum ClientPolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type LoginAttemptInput = {
@@ -1837,6 +2070,12 @@ export type AuthClientAggs = {
   hypi_instanceId?: Maybe<AggOtherScalar>;
 };
 
+export enum PolicyBoundary {
+  Platform = 'PLATFORM',
+  Instance = 'INSTANCE',
+  Resource = 'RESOURCE'
+}
+
 export type EmailSendingAttemptInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
   headers?: Maybe<Scalars['Json']>;
@@ -1898,6 +2137,8 @@ export enum WebhookFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /**
    * This refers to a GraphQL function.
    * The function must have a graphql argument defined as `(payload: WebhookPayload): WebhookPayload`
@@ -2175,12 +2416,19 @@ export type PersonInputOpt = {
   preferences?: Maybe<Array<Maybe<PairInputOpt>>>;
 };
 
-export type RequestTemplateInput = {
-  hypi?: Maybe<HypiInput>;
-  name: Scalars['String'];
-  request?: Maybe<Scalars['String']>;
-  response?: Maybe<Scalars['String']>;
-};
+/** Scalar fields defined by StorageCounter */
+export enum StorageCounterScalarFields {
+  Type = 'type',
+  Field = 'field',
+  Size = 'size',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId'
+}
 
 /** All fields defined by Hypi */
 export enum HypiFields {
@@ -2205,8 +2453,16 @@ export enum HypiFields {
   /** The ID of the account which created the object */
   CreatedBy = 'createdBy',
   /** The ID of the app instance which created and owns the object */
-  InstanceId = 'instanceId'
+  InstanceId = 'instanceId',
+  Tags = 'tags'
 }
+
+export type RequestTemplateInput = {
+  hypi?: Maybe<HypiInput>;
+  name: Scalars['String'];
+  request?: Maybe<Scalars['String']>;
+  response?: Maybe<Scalars['String']>;
+};
 
 /** All fields defined by BruteForceDetectionOptions */
 export enum BruteForceDetectionOptionsFields {
@@ -2232,7 +2488,9 @@ export enum BruteForceDetectionOptionsFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type GeoInputOpt = {
@@ -2346,6 +2604,8 @@ export enum PasswordReminderFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /** The Account email that needs to be changed */
   ToHypi = 'to_hypi',
   /** The Account email that needs to be changed */
@@ -2458,7 +2718,9 @@ export enum EmailTemplateFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type RealmPolicyInput = {
@@ -2523,7 +2785,6 @@ export type WorkflowConditionalInputOpt = {
 /** A list of types on which mutations can be performed on */
 export type HypiUpsertInputUnion = {
   Product?: Maybe<Array<ProductInputOpt>>;
-  Hypi?: Maybe<Array<HypiInputOpt>>;
   Pair?: Maybe<Array<PairInputOpt>>;
   Script?: Maybe<Array<ScriptInputOpt>>;
   RequestTemplate?: Maybe<Array<RequestTemplateInputOpt>>;
@@ -2544,6 +2805,8 @@ export type HypiUpsertInputUnion = {
   BruteForceDetectionOptions?: Maybe<Array<BruteForceDetectionOptionsInputOpt>>;
   OAuth2AuthorizedClient?: Maybe<Array<OAuth2AuthorizedClientInputOpt>>;
   AuthClient?: Maybe<Array<AuthClientInputOpt>>;
+  ABACPolicy?: Maybe<Array<AbacPolicyInputOpt>>;
+  ABACTag?: Maybe<Array<AbacTagInputOpt>>;
   Image?: Maybe<Array<ImageInputOpt>>;
   EmailVerification?: Maybe<Array<EmailVerificationInputOpt>>;
   EmailTemplate?: Maybe<Array<EmailTemplateInputOpt>>;
@@ -2556,6 +2819,8 @@ export type HypiUpsertInputUnion = {
   WorkflowStepData?: Maybe<Array<WorkflowStepDataInputOpt>>;
   WorkflowStep?: Maybe<Array<WorkflowStepInputOpt>>;
   AccessToken?: Maybe<Array<AccessTokenInputOpt>>;
+  StorageCounter?: Maybe<Array<StorageCounterInputOpt>>;
+  Hypi?: Maybe<Array<HypiInputOpt>>;
   Country?: Maybe<Array<CountryInputOpt>>;
   Account?: Maybe<Array<AccountInputOpt>>;
   Person?: Maybe<Array<PersonInputOpt>>;
@@ -2622,6 +2887,8 @@ export enum AggFloatFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /** The value of the aggregated field for each group */
   GroupValuesHypi = 'groupValues_hypi',
   /** The value of the aggregated field for each group */
@@ -2698,7 +2965,9 @@ export enum GroupPolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type HttpResponse = {
@@ -2706,6 +2975,13 @@ export type HttpResponse = {
   headers?: Maybe<Scalars['Json']>;
   status?: Maybe<Scalars['Int']>;
   rawPayload?: Maybe<Scalars['String']>;
+};
+
+export type StorageCounterInput = {
+  hypi?: Maybe<HypiInput>;
+  type: Scalars['String'];
+  field: Scalars['String'];
+  size: Scalars['Int'];
 };
 
 export type LoginAttemptAggs = {
@@ -2735,6 +3011,14 @@ export type EmailVerificationInputOpt = {
   confirmed?: Maybe<Scalars['Boolean']>;
 };
 
+export type EmailTemplateInput = {
+  hypi?: Maybe<HypiInput>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  template?: Maybe<Scalars['String']>;
+  comment?: Maybe<Scalars['String']>;
+};
+
 /** All fields defined by LogMessage */
 export enum LogMessageFields {
   Hypi = 'hypi',
@@ -2753,16 +3037,10 @@ export enum LogMessageFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
-
-export type EmailTemplateInput = {
-  hypi?: Maybe<HypiInput>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  template?: Maybe<Scalars['String']>;
-  comment?: Maybe<Scalars['String']>;
-};
 
 export type WebhookResponseInput = {
   hypi?: Maybe<HypiInput>;
@@ -2989,7 +3267,9 @@ export enum NotificationCtxFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type WorkflowTimed = {
@@ -3000,6 +3280,20 @@ export type WorkflowTimed = {
    * e.g. P1M is 1 month and PT1M is 1 minute
    */
   maxExecutionTime?: Maybe<Scalars['String']>;
+};
+
+export type StorageCounterAggs = {
+  __typename?: 'StorageCounterAggs';
+  type?: Maybe<AggOtherScalar>;
+  field?: Maybe<AggOtherScalar>;
+  size?: Maybe<AggInt>;
+  hypi_id?: Maybe<AggOtherScalar>;
+  hypi_impl?: Maybe<AggOtherScalar>;
+  hypi_created?: Maybe<AggOtherScalar>;
+  hypi_updated?: Maybe<AggOtherScalar>;
+  hypi_trashed?: Maybe<AggOtherScalar>;
+  hypi_createdBy?: Maybe<AggOtherScalar>;
+  hypi_instanceId?: Maybe<AggOtherScalar>;
 };
 
 export type AuthClientInputOpt = {
@@ -3094,7 +3388,9 @@ export enum ImageFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type GeoEnvelopeAggs = {
@@ -3204,7 +3500,9 @@ export enum GraphQlRefFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Scalar fields defined by File */
@@ -3271,7 +3569,6 @@ export type PermissionInput = {
   operationType: OpType;
   operations: Array<Maybe<Scalars['String']>>;
   includeAllAccounts?: Maybe<Scalars['Boolean']>;
-  targetInstance?: Maybe<Scalars['String']>;
 };
 
 export type RemoteLogin = {
@@ -3334,6 +3631,15 @@ export enum GraphQlRefScalarFields {
   HypiInstanceId = 'hypi_instanceId'
 }
 
+export type AbacPolicyGroupByOptions = {
+  /** The field by which to to group the matching data */
+  field: AbacPolicyScalarFields;
+  /** If provided, the aggregated data will be ordered by this field and any other field which specifies this field, in the order they're defined */
+  order?: Maybe<AggOrder>;
+  /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
+  dateGranularity?: Maybe<TimeUnit>;
+};
+
 /** Scalar fields defined by Permission */
 export enum PermissionScalarFields {
   Name = 'name',
@@ -3350,16 +3656,6 @@ export enum PermissionScalarFields {
   OperationType = 'operationType',
   /** If true, this permission grants/denies access to all accounts (including anonymous account) */
   IncludeAllAccounts = 'includeAllAccounts',
-  /**
-   * When a Permission is created, the instance to which it grants access is assumed to be the same as the one in which it is created.
-   * This means - if this field is not provided, it will be set to the current instance by default.
-   * Some times, it is necessary to grant permission to a resource that exists in a different instance.
-   * In those cases, this field can be set to the instance ID from which the resource needs to be accessed.
-   * It is also possible to set this to the wildcard character '*' - in which case, this permission grants access to the resource from any instance.
-   * Note that wildcard can only be used to grant access, by default, access is denied to all other instances
-   * so a negative policy will have no effect when this field is set to '*'.
-   */
-  TargetInstance = 'targetInstance',
   Scopes = 'scopes',
   Operations = 'operations',
   HypiId = 'hypi_id',
@@ -3390,6 +3686,7 @@ export type HypiInputOpt = {
   trashed?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<Scalars['ID']>;
   instanceId?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<AbacTagInputOpt>>>;
 };
 
 /** Scalar fields defined by EmailMessage */
@@ -3541,7 +3838,9 @@ export enum CoordinateFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type File = {
@@ -3596,6 +3895,12 @@ export type RealmAggs = {
   hypi_trashed?: Maybe<AggOtherScalar>;
   hypi_createdBy?: Maybe<AggOtherScalar>;
   hypi_instanceId?: Maybe<AggOtherScalar>;
+};
+
+export type AbacTagInput = {
+  hypi?: Maybe<HypiInput>;
+  key: Scalars['String'];
+  value?: Maybe<Scalars['String']>;
 };
 
 
@@ -3662,6 +3967,19 @@ export type RealmLinkGroupByOptions = {
   dateGranularity?: Maybe<TimeUnit>;
 };
 
+/** Scalar fields defined by Pair */
+export enum PairScalarFields {
+  Key = 'key',
+  Value = 'value',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId'
+}
+
 /** All fields defined by AccessToken */
 export enum AccessTokenFields {
   Hypi = 'hypi',
@@ -3675,20 +3993,9 @@ export enum AccessTokenFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
-}
-
-/** Scalar fields defined by Pair */
-export enum PairScalarFields {
-  Key = 'key',
-  Value = 'value',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type GraphQlRefAggs = {
@@ -3719,6 +4026,19 @@ export enum AccessTokenScalarFields {
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId'
 }
+
+export type AbacTagAggs = {
+  __typename?: 'ABACTagAggs';
+  key?: Maybe<AggOtherScalar>;
+  value?: Maybe<AggOtherScalar>;
+  hypi_id?: Maybe<AggOtherScalar>;
+  hypi_impl?: Maybe<AggOtherScalar>;
+  hypi_created?: Maybe<AggOtherScalar>;
+  hypi_updated?: Maybe<AggOtherScalar>;
+  hypi_trashed?: Maybe<AggOtherScalar>;
+  hypi_createdBy?: Maybe<AggOtherScalar>;
+  hypi_instanceId?: Maybe<AggOtherScalar>;
+};
 
 export type WorkflowExecutableAs = {
   hypi?: Maybe<Hypi>;
@@ -3770,7 +4090,9 @@ export enum EmailSendingAttemptFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Scalar fields defined by LoginAttempt */
@@ -3804,7 +4126,23 @@ export enum EmailFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
+}
+
+export type StorageCounterGroupByOptions = {
+  /** The field by which to to group the matching data */
+  field: StorageCounterScalarFields;
+  /** If provided, the aggregated data will be ordered by this field and any other field which specifies this field, in the order they're defined */
+  order?: Maybe<AggOrder>;
+  /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
+  dateGranularity?: Maybe<TimeUnit>;
+};
+
+/** All numeric fields defined by StorageCounter */
+export enum StorageCounterNumericFields {
+  Size = 'size'
 }
 
 export type GeoEnvelope = {
@@ -3974,22 +4312,6 @@ export type GaugeGroupByOptions = {
   dateGranularity?: Maybe<TimeUnit>;
 };
 
-export type WorkflowAsyncInputOpt = {
-  execAs?: Maybe<Scalars['String']>;
-  maxExecutionTime?: Maybe<Scalars['String']>;
-  fn?: Maybe<GraphQlRefInputOpt>;
-  repeatN?: Maybe<Scalars['Int']>;
-  steps?: Maybe<Array<Maybe<WorkflowStepInputOpt>>>;
-  cronSchedule?: Maybe<Scalars['String']>;
-  repeatIf?: Maybe<GraphQlRefInputOpt>;
-  async?: Maybe<Scalars['Boolean']>;
-  parallel?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  hypi?: Maybe<HypiInputOpt>;
-  evaluateIf?: Maybe<GraphQlRefInputOpt>;
-  order?: Maybe<Scalars['Int']>;
-};
-
 /** All fields defined by AggInt */
 export enum AggIntFields {
   Hypi = 'hypi',
@@ -4007,6 +4329,8 @@ export enum AggIntFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /** The value of the aggregated field for each group */
   GroupValuesHypi = 'groupValues_hypi',
   /** The value of the aggregated field for each group */
@@ -4014,6 +4338,22 @@ export enum AggIntFields {
   /** The value of the aggregated field for each group */
   GroupValuesValue = 'groupValues_value'
 }
+
+export type WorkflowAsyncInputOpt = {
+  execAs?: Maybe<Scalars['String']>;
+  maxExecutionTime?: Maybe<Scalars['String']>;
+  fn?: Maybe<GraphQlRefInputOpt>;
+  repeatN?: Maybe<Scalars['Int']>;
+  steps?: Maybe<Array<Maybe<WorkflowStepInputOpt>>>;
+  cronSchedule?: Maybe<Scalars['String']>;
+  repeatIf?: Maybe<GraphQlRefInputOpt>;
+  async?: Maybe<Scalars['Boolean']>;
+  parallel?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  hypi?: Maybe<HypiInputOpt>;
+  evaluateIf?: Maybe<GraphQlRefInputOpt>;
+  order?: Maybe<Scalars['Int']>;
+};
 
 export type WorkflowTimedInputOpt = {
   execAs?: Maybe<Scalars['String']>;
@@ -4044,6 +4384,20 @@ export type ImageGroupByOptions = {
   /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
   dateGranularity?: Maybe<TimeUnit>;
 };
+
+/** Scalar fields defined by ABACTag */
+export enum AbacTagScalarFields {
+  Key = 'key',
+  /** If provided then policy assertion can be made against it */
+  Value = 'value',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId'
+}
 
 export type PairInput = {
   hypi?: Maybe<HypiInput>;
@@ -4076,16 +4430,6 @@ export type Permission = {
   operationType: OpType;
   /** If true, this permission grants/denies access to all accounts (including anonymous account) */
   includeAllAccounts?: Maybe<Scalars['Boolean']>;
-  /**
-   * When a Permission is created, the instance to which it grants access is assumed to be the same as the one in which it is created.
-   * This means - if this field is not provided, it will be set to the current instance by default.
-   * Some times, it is necessary to grant permission to a resource that exists in a different instance.
-   * In those cases, this field can be set to the instance ID from which the resource needs to be accessed.
-   * It is also possible to set this to the wildcard character '*' - in which case, this permission grants access to the resource from any instance.
-   * Note that wildcard can only be used to grant access, by default, access is denied to all other instances
-   * so a negative policy will have no effect when this field is set to '*'.
-   */
-  targetInstance?: Maybe<Scalars['String']>;
   policies?: Maybe<Array<Policy>>;
   scopes: Array<Scalars['String']>;
   operations: Array<Maybe<Scalars['String']>>;
@@ -4147,7 +4491,9 @@ export enum TimePolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Email related */
@@ -4205,7 +4551,9 @@ export enum AccountFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** The event field of HypiEvent will be one of these */
@@ -4401,7 +4749,9 @@ export enum RequestTemplateFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type BruteForceDetectionOptionsMaths = {
@@ -4424,7 +4774,9 @@ export enum WorkflowStepDataFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Scalar fields defined by PersonName */
@@ -4590,6 +4942,8 @@ export enum WorkflowStepFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /** The function to execute for this step, the data returned by the step can subsequently be used in other steps */
   FnHypi = 'fn_hypi',
   /** The function to execute for this step, the data returned by the step can subsequently be used in other steps */
@@ -4627,7 +4981,9 @@ export enum ServerlessResponseFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type CounterInputOpt = {
@@ -4662,7 +5018,9 @@ export enum GeoEnvelopeFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type PasswordGroupByOptions = {
@@ -4672,6 +5030,14 @@ export type PasswordGroupByOptions = {
   order?: Maybe<AggOrder>;
   /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
   dateGranularity?: Maybe<TimeUnit>;
+};
+
+export type AbacTag = {
+  __typename?: 'ABACTag';
+  hypi?: Maybe<Hypi>;
+  key: Scalars['String'];
+  /** If provided then policy assertion can be made against it */
+  value?: Maybe<Scalars['String']>;
 };
 
 /** All fields defined by Notification */
@@ -4686,6 +5052,8 @@ export enum NotificationFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   CtxHypi = 'ctx_hypi',
   CtxType = 'ctx_type',
   CtxTargetAccount = 'ctx_targetAccount'
@@ -4748,6 +5116,10 @@ export type HypiAggregationType = {
   oAuth2AuthorizedClientWith?: Maybe<Array<Maybe<OAuth2AuthorizedClientAggs>>>;
   authClient?: Maybe<AuthClientAggs>;
   authClientWith?: Maybe<Array<Maybe<AuthClientAggs>>>;
+  aBACPolicy?: Maybe<AbacPolicyAggs>;
+  aBACPolicyWith?: Maybe<Array<Maybe<AbacPolicyAggs>>>;
+  aBACTag?: Maybe<AbacTagAggs>;
+  aBACTagWith?: Maybe<Array<Maybe<AbacTagAggs>>>;
   image?: Maybe<ImageAggs>;
   imageWith?: Maybe<Array<Maybe<ImageAggs>>>;
   emailVerification?: Maybe<EmailVerificationAggs>;
@@ -4772,6 +5144,8 @@ export type HypiAggregationType = {
   workflowStepWith?: Maybe<Array<Maybe<WorkflowStepAggs>>>;
   accessToken?: Maybe<AccessTokenAggs>;
   accessTokenWith?: Maybe<Array<Maybe<AccessTokenAggs>>>;
+  storageCounter?: Maybe<StorageCounterAggs>;
+  storageCounterWith?: Maybe<Array<Maybe<StorageCounterAggs>>>;
   country?: Maybe<CountryAggs>;
   countryWith?: Maybe<Array<Maybe<CountryAggs>>>;
   account?: Maybe<AccountAggs>;
@@ -4841,6 +5215,7 @@ export type HypiAggregationTypeProductWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4860,6 +5235,7 @@ export type HypiAggregationTypeScriptWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4879,6 +5255,7 @@ export type HypiAggregationTypeRequestTemplateWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4898,6 +5275,7 @@ export type HypiAggregationTypeNotificationCtxWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4917,6 +5295,7 @@ export type HypiAggregationTypeNotificationWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4936,6 +5315,7 @@ export type HypiAggregationTypeURlWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4955,6 +5335,7 @@ export type HypiAggregationTypeCurrencyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4974,6 +5355,7 @@ export type HypiAggregationTypeCoordinateWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4993,6 +5375,7 @@ export type HypiAggregationTypeGeoEnvelopeWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5012,6 +5395,7 @@ export type HypiAggregationTypeLanguageWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5031,6 +5415,7 @@ export type HypiAggregationTypeAddressWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5050,6 +5435,7 @@ export type HypiAggregationTypePersonNameWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5069,6 +5455,7 @@ export type HypiAggregationTypePhoneWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5088,6 +5475,7 @@ export type HypiAggregationTypeEmailWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5107,6 +5495,7 @@ export type HypiAggregationTypePasswordWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5126,6 +5515,7 @@ export type HypiAggregationTypeRemoteLoginWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5145,6 +5535,7 @@ export type HypiAggregationTypeLoginAttemptWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5164,6 +5555,7 @@ export type HypiAggregationTypeBruteForceDetectionOptionsWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5183,6 +5575,7 @@ export type HypiAggregationTypeOAuth2AuthorizedClientWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5202,6 +5595,47 @@ export type HypiAggregationTypeAuthClientWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeABacPolicyArgs = {
+  where?: Maybe<Scalars['String']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeABacPolicyWithArgs = {
+  where?: Maybe<Scalars['String']>;
+  groupBy: Array<AbacPolicyGroupByOptions>;
+  having?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeABacTagArgs = {
+  where?: Maybe<Scalars['String']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeABacTagWithArgs = {
+  where?: Maybe<Scalars['String']>;
+  groupBy: Array<AbacTagGroupByOptions>;
+  having?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5221,6 +5655,7 @@ export type HypiAggregationTypeImageWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5240,6 +5675,7 @@ export type HypiAggregationTypeEmailVerificationWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5259,6 +5695,7 @@ export type HypiAggregationTypeEmailTemplateWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5278,6 +5715,7 @@ export type HypiAggregationTypeEmailSendingAttemptWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5297,6 +5735,7 @@ export type HypiAggregationTypePasswordReminderWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5316,6 +5755,7 @@ export type HypiAggregationTypeWebhookWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5335,6 +5775,7 @@ export type HypiAggregationTypeWebhookResponseWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5354,6 +5795,7 @@ export type HypiAggregationTypeLogMessageWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5373,6 +5815,7 @@ export type HypiAggregationTypeGraphQlRefWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5392,6 +5835,7 @@ export type HypiAggregationTypeWorkflowStepDataWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5411,6 +5855,7 @@ export type HypiAggregationTypeWorkflowStepWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5430,6 +5875,27 @@ export type HypiAggregationTypeAccessTokenWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeStorageCounterArgs = {
+  where?: Maybe<Scalars['String']>;
+};
+
+
+/** A list of types on which aggregation queries can be executed */
+export type HypiAggregationTypeStorageCounterWithArgs = {
+  where?: Maybe<Scalars['String']>;
+  groupBy: Array<StorageCounterGroupByOptions>;
+  having?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5449,6 +5915,7 @@ export type HypiAggregationTypeCountryWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5468,6 +5935,7 @@ export type HypiAggregationTypeAccountWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5487,6 +5955,7 @@ export type HypiAggregationTypePersonWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5506,6 +5975,7 @@ export type HypiAggregationTypeOrganisationWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5525,6 +5995,7 @@ export type HypiAggregationTypeOAuthProviderWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5544,6 +6015,7 @@ export type HypiAggregationTypeRealmWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5563,6 +6035,7 @@ export type HypiAggregationTypeGroupWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5582,6 +6055,7 @@ export type HypiAggregationTypeRoleWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5601,6 +6075,7 @@ export type HypiAggregationTypeRolePolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5620,6 +6095,7 @@ export type HypiAggregationTypeClientPolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5639,6 +6115,7 @@ export type HypiAggregationTypeTimePolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5658,6 +6135,7 @@ export type HypiAggregationTypeAggregatedPolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5677,6 +6155,7 @@ export type HypiAggregationTypeGroupPolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5696,6 +6175,7 @@ export type HypiAggregationTypeAccountPolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5715,6 +6195,7 @@ export type HypiAggregationTypeRealmPolicyWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5734,6 +6215,7 @@ export type HypiAggregationTypeRealmLinkWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5753,6 +6235,7 @@ export type HypiAggregationTypePermissionWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5772,6 +6255,7 @@ export type HypiAggregationTypeFileWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5791,6 +6275,7 @@ export type HypiAggregationTypeVideoWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5810,6 +6295,7 @@ export type HypiAggregationTypeEmailMessageWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5829,6 +6315,7 @@ export type HypiAggregationTypeWorkflowWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5848,6 +6335,7 @@ export type HypiAggregationTypeWorkflowSessionWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5867,6 +6355,7 @@ export type HypiAggregationTypeCounterWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5886,6 +6375,7 @@ export type HypiAggregationTypeGaugeWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -5905,6 +6395,7 @@ export type HypiAggregationTypeServerlessResponseWithArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   includeTrashed?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 export type RoleGroupByOptions = {
@@ -5993,7 +6484,9 @@ export enum UrlFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type EmailMessageInputOpt = {
@@ -6078,7 +6571,9 @@ export enum PairFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export enum HashAlgorithm {
@@ -6101,6 +6596,19 @@ export enum FileStatus {
   Deleted = 'DELETED',
   Unavailable = 'UNAVAILABLE'
 }
+
+/**
+ * A row is created for every resource. It cannot be created or modified by end users.
+ * The ID of each entry is a hash of the resource ID, type and field.
+ * When the resource is deleted, the entry is deleted.
+ */
+export type StorageCounter = {
+  __typename?: 'StorageCounter';
+  hypi?: Maybe<Hypi>;
+  type: Scalars['String'];
+  field: Scalars['String'];
+  size: Scalars['Int'];
+};
 
 export type ServerlessResponseInput = {
   hypi?: Maybe<HypiInput>;
@@ -6132,26 +6640,15 @@ export enum GaugeFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type RoleInput = {
   hypi?: Maybe<HypiInput>;
   name: Scalars['String'];
   accounts?: Maybe<Array<AccountInput>>;
-};
-
-export type TimePolicyInput = {
-  hypi?: Maybe<HypiInput>;
-  from?: Maybe<Scalars['DateTime']>;
-  to?: Maybe<Scalars['DateTime']>;
-  clients?: Maybe<Array<AuthClientInput>>;
-  roles?: Maybe<Array<RoleInput>>;
-  groups?: Maybe<Array<GroupInput>>;
-  accounts?: Maybe<Array<AccountInput>>;
-  realms?: Maybe<Array<RealmLinkInput>>;
-  name: Scalars['String'];
-  logic?: Maybe<AuthLogic>;
 };
 
 /** All fields defined by Product */
@@ -6166,8 +6663,23 @@ export enum ProductFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
+
+export type TimePolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  from?: Maybe<Scalars['DateTime']>;
+  to?: Maybe<Scalars['DateTime']>;
+  clients?: Maybe<Array<AuthClientInput>>;
+  roles?: Maybe<Array<RoleInput>>;
+  groups?: Maybe<Array<GroupInput>>;
+  accounts?: Maybe<Array<AccountInput>>;
+  realms?: Maybe<Array<RealmLinkInput>>;
+  name: Scalars['String'];
+  logic?: Maybe<AuthLogic>;
+};
 
 export type WorkflowInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
@@ -6218,7 +6730,9 @@ export enum CounterFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type CurrencyInput = {
@@ -6239,7 +6753,9 @@ export enum RoleFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type GroupPolicyGroupByOptions = {
@@ -6276,7 +6792,9 @@ export enum PersonFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type RoleAggs = {
@@ -6416,6 +6934,8 @@ export enum AggOtherScalarFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   /** The value of the aggregated field for each group */
   GroupValuesHypi = 'groupValues_hypi',
   /** The value of the aggregated field for each group */
@@ -6448,7 +6968,9 @@ export enum RemoteLoginFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** An object injected into ALL types as the field "hypi" */
@@ -6476,6 +6998,17 @@ export type Hypi = {
   createdBy?: Maybe<Scalars['ID']>;
   /** The ID of the app instance which created and owns the object */
   instanceId?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<AbacTag>>;
+};
+
+
+/** An object injected into ALL types as the field "hypi" */
+export type HypiTagsArgs = {
+  arcql?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
 };
 
 export type AccessTokenAggs = {
@@ -6866,7 +7399,9 @@ export enum RealmPolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type GeoEnvelopeInputOpt = {
@@ -6891,7 +7426,6 @@ export enum OrganisationScalarFields {
 /** A list of all types in the app */
 export enum HypiSchemaType {
   Product = 'Product',
-  Hypi = 'Hypi',
   PageInfo = 'PageInfo',
   HypiResultEdge = 'HypiResultEdge',
   HypiFilterConnection = 'HypiFilterConnection',
@@ -6924,6 +7458,8 @@ export enum HypiSchemaType {
    * Currently implicitly created by Hypi.
    */
   AuthClient = 'AuthClient',
+  AbacPolicy = 'ABACPolicy',
+  AbacTag = 'ABACTag',
   Image = 'Image',
   EmailVerification = 'EmailVerification',
   /**
@@ -6966,7 +7502,14 @@ export enum HypiSchemaType {
   WorkflowStepData = 'WorkflowStepData',
   WorkflowStep = 'WorkflowStep',
   AccessToken = 'AccessToken',
+  /**
+   * A row is created for every resource. It cannot be created or modified by end users.
+   * The ID of each entry is a hash of the resource ID, type and field.
+   * When the resource is deleted, the entry is deleted.
+   */
+  StorageCounter = 'StorageCounter',
   PermissionDescription = 'PermissionDescription',
+  Hypi = 'Hypi',
   /**
    * Identifies a given country according to ISO3166
    * https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
@@ -7050,7 +7593,9 @@ export enum AuthClientFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type RealmLinkAggs = {
@@ -7064,6 +7609,61 @@ export type RealmLinkAggs = {
   hypi_createdBy?: Maybe<AggOtherScalar>;
   hypi_instanceId?: Maybe<AggOtherScalar>;
 };
+
+/** Scalar fields defined by ABACPolicy */
+export enum AbacPolicyScalarFields {
+  From = 'from',
+  To = 'to',
+  /**
+   * The instance the policy applies to. By default the same instance in which it exists.
+   * A `Platform Admin` can set it to *, all other users get permission denied if this is not the same as their current instance.
+   */
+  GivenInstance = 'givenInstance',
+  /** e.g. Account or * */
+  GivenType = 'givenType',
+  /** Exactly one of Query|Mutation|Subscription|* */
+  GivenOperation = 'givenOperation',
+  /** The exact function name or wildcard e.g. find|upsert|* */
+  GivenFn = 'givenFn',
+  /** The prefix that any function can begin with e.g. find will match findX, findY, findOther */
+  GivenFnPrefix = 'givenFnPrefix',
+  WhenResourceTagKeyEq = 'whenResourceTagKeyEq',
+  WhenResourceTagKeyPrefix = 'whenResourceTagKeyPrefix',
+  WhenResourceTagValueEq = 'whenResourceTagValueEq',
+  WhenResourceTagValuePrefix = 'whenResourceTagValuePrefix',
+  /** Policy applies when the account ID is equal to this */
+  AssertAccountIdEq = 'assertAccountIdEq',
+  /** Policy applies when the account username starts with this */
+  AssertAccountUsernamePrefix = 'assertAccountUsernamePrefix',
+  /** When set, the account MUST have a tag whose key is equal to this */
+  AssertAccountTagKeyEq = 'assertAccountTagKeyEq',
+  /** When set, the account MUST have a tag whose key is starts with this */
+  AssertAccountTagKeyPrefix = 'assertAccountTagKeyPrefix',
+  /** When set, the account MUST have a tag whose value is equal to this */
+  AssertAccountTagValEq = 'assertAccountTagValEq',
+  /** When set, the account MUST have a tag whose value is starts with this */
+  AssertAccountTagValPrefix = 'assertAccountTagValPrefix',
+  /**
+   * Resource owner can set the boundary to RESOURCE (or anyone that has permission to do so)
+   * System Admin for the instance can set the boundary to INSTANCE
+   * Platform Admin can set the boundary to PLATFORM
+   * PLATFORM|INSTANCE|RESOURCE
+   */
+  Boundary = 'boundary',
+  /**
+   * If provided, this is a comma separate list of field paths that are allowed by this policy
+   * e.g. a,b.c allows access to a and all sub-fields below it as well as to the field c under the parent field b. No other field under b is allowed
+   * If the policy is allowing read access, only these fields can be seen. If it is write acces, only these fields can be modified.
+   */
+  AllowedFields = 'allowedFields',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId'
+}
 
 export type NotificationAggs = {
   __typename?: 'NotificationAggs';
@@ -7319,7 +7919,6 @@ export type PermissionInputOpt = {
   operationType?: Maybe<OpType>;
   operations?: Maybe<Array<Maybe<Scalars['String']>>>;
   includeAllAccounts?: Maybe<Scalars['Boolean']>;
-  targetInstance?: Maybe<Scalars['String']>;
 };
 
 export type PasswordReminderInputOpt = {
@@ -7443,6 +8042,8 @@ export enum EmailVerificationFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   EmailHypi = 'email_hypi',
   EmailValue = 'email_value',
   EmailType = 'email_type'
@@ -7478,7 +8079,9 @@ export enum AddressFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** All fields defined by Organisation */
@@ -7498,7 +8101,9 @@ export enum OrganisationFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type WebhookResponseInputOpt = {
@@ -7507,6 +8112,23 @@ export type WebhookResponseInputOpt = {
   headers?: Maybe<Scalars['Json']>;
   body?: Maybe<Scalars['Json']>;
 };
+
+/** All fields defined by ABACTag */
+export enum AbacTagFields {
+  Hypi = 'hypi',
+  Key = 'key',
+  /** If provided then policy assertion can be made against it */
+  Value = 'value',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
+}
 
 /** All fields defined by AggregatedPolicy */
 export enum AggregatedPolicyFields {
@@ -7523,7 +8145,9 @@ export enum AggregatedPolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /**
@@ -7852,7 +8476,6 @@ export enum PhoneScalarFields {
 /** A list of all types in the app which can created or updated directly */
 export enum HypiMutationType {
   Product = 'Product',
-  Hypi = 'Hypi',
   PageInfo = 'PageInfo',
   HypiResultEdge = 'HypiResultEdge',
   HypiFilterConnection = 'HypiFilterConnection',
@@ -7885,6 +8508,8 @@ export enum HypiMutationType {
    * Currently implicitly created by Hypi.
    */
   AuthClient = 'AuthClient',
+  AbacPolicy = 'ABACPolicy',
+  AbacTag = 'ABACTag',
   Image = 'Image',
   EmailVerification = 'EmailVerification',
   /**
@@ -7927,7 +8552,14 @@ export enum HypiMutationType {
   WorkflowStepData = 'WorkflowStepData',
   WorkflowStep = 'WorkflowStep',
   AccessToken = 'AccessToken',
+  /**
+   * A row is created for every resource. It cannot be created or modified by end users.
+   * The ID of each entry is a hash of the resource ID, type and field.
+   * When the resource is deleted, the entry is deleted.
+   */
+  StorageCounter = 'StorageCounter',
   PermissionDescription = 'PermissionDescription',
+  Hypi = 'Hypi',
   /**
    * Identifies a given country according to ISO3166
    * https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
@@ -8038,7 +8670,9 @@ export enum PermissionDescriptionFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Scalar fields defined by Hypi */
@@ -8101,7 +8735,6 @@ export type UrlInputOpt = {
 export type HypiSubscriptionUnion = {
   __typename?: 'HypiSubscriptionUnion';
   Product?: Maybe<Product>;
-  Hypi?: Maybe<Hypi>;
   PageInfo?: Maybe<PageInfo>;
   HypiResultEdge?: Maybe<HypiResultEdge>;
   HypiFilterConnection?: Maybe<HypiFilterConnection>;
@@ -8129,6 +8762,8 @@ export type HypiSubscriptionUnion = {
   BruteForceDetectionOptions?: Maybe<BruteForceDetectionOptions>;
   OAuth2AuthorizedClient?: Maybe<OAuth2AuthorizedClient>;
   AuthClient?: Maybe<AuthClient>;
+  ABACPolicy?: Maybe<AbacPolicy>;
+  ABACTag?: Maybe<AbacTag>;
   Image?: Maybe<Image>;
   EmailVerification?: Maybe<EmailVerification>;
   EmailTemplate?: Maybe<EmailTemplate>;
@@ -8141,7 +8776,9 @@ export type HypiSubscriptionUnion = {
   WorkflowStepData?: Maybe<WorkflowStepData>;
   WorkflowStep?: Maybe<WorkflowStep>;
   AccessToken?: Maybe<AccessToken>;
+  StorageCounter?: Maybe<StorageCounter>;
   PermissionDescription?: Maybe<PermissionDescription>;
+  Hypi?: Maybe<Hypi>;
   Country?: Maybe<Country>;
   Account?: Maybe<Account>;
   Person?: Maybe<Person>;
@@ -8169,6 +8806,15 @@ export type HypiSubscriptionUnion = {
   ServerlessResponse?: Maybe<ServerlessResponse>;
 };
 
+export type AbacTagGroupByOptions = {
+  /** The field by which to to group the matching data */
+  field: AbacTagScalarFields;
+  /** If provided, the aggregated data will be ordered by this field and any other field which specifies this field, in the order they're defined */
+  order?: Maybe<AggOrder>;
+  /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
+  dateGranularity?: Maybe<TimeUnit>;
+};
+
 export type ServerlessResponseGroupByOptions = {
   /** The field by which to to group the matching data */
   field: ServerlessResponseScalarFields;
@@ -8186,6 +8832,7 @@ export type HypiMathType = {
   BruteForceDetectionOptions?: Maybe<Array<BruteForceDetectionOptionsMaths>>;
   WebhookResponse?: Maybe<Array<WebhookResponseMaths>>;
   WorkflowStep?: Maybe<Array<WorkflowStepMaths>>;
+  StorageCounter?: Maybe<Array<StorageCounterMaths>>;
   Workflow?: Maybe<Array<WorkflowMaths>>;
   Counter?: Maybe<Array<CounterMaths>>;
   Gauge?: Maybe<Array<GaugeMaths>>;
@@ -8243,7 +8890,9 @@ export enum OAuth2AuthorizedClientFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type OAuthProviderAggs = {
@@ -8377,7 +9026,9 @@ export enum LanguageFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 /** Scalar fields defined by AggInt */
@@ -8503,7 +9154,9 @@ export enum ScriptFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type AccessToken = {
@@ -8683,7 +9336,9 @@ export enum AccountPolicyFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type RealmInputOpt = {
@@ -8740,7 +9395,9 @@ export enum LoginAttemptFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type WorkflowStepData = {
@@ -8797,7 +9454,9 @@ export enum OAuthProviderFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type PasswordReminderAggs = {
@@ -8819,26 +9478,15 @@ export type PasswordReminderAggs = {
   to_type?: Maybe<AggOtherScalar>;
 };
 
+export type StorageCounterMaths = {
+  size?: Maybe<MathInputInt>;
+};
+
 export type RealmLinkInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
   name?: Maybe<Scalars['String']>;
   accounts?: Maybe<Array<Maybe<AccountInputOpt>>>;
 };
-
-/** All fields defined by WebhookResponse */
-export enum WebhookResponseFields {
-  Hypi = 'hypi',
-  Status = 'status',
-  Headers = 'headers',
-  Body = 'body',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
-}
 
 /** Scalar fields defined by AggFloat */
 export enum AggFloatScalarFields {
@@ -8858,6 +9506,23 @@ export enum AggFloatScalarFields {
   GroupValuesKey = 'groupValues_key',
   /** The value of the aggregated field for each group */
   GroupValuesValue = 'groupValues_value'
+}
+
+/** All fields defined by WebhookResponse */
+export enum WebhookResponseFields {
+  Hypi = 'hypi',
+  Status = 'status',
+  Headers = 'headers',
+  Body = 'body',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
 
 export type VideoInputOpt = {
@@ -8945,6 +9610,7 @@ export type HypiInput = {
   trashed?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<Scalars['ID']>;
   instanceId?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<AbacTagInput>>;
 };
 
 export type RolePolicyAggs = {
@@ -8973,6 +9639,13 @@ export type OAuth2AuthorizedClientInput = {
   refreshToken?: Maybe<Scalars['String']>;
 };
 
+export type AccountPolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  accounts?: Maybe<Array<AccountInput>>;
+  name: Scalars['String'];
+  logic?: Maybe<AuthLogic>;
+};
+
 /** All fields defined by Permission */
 export enum PermissionFields {
   Hypi = 'hypi',
@@ -8990,16 +9663,6 @@ export enum PermissionFields {
   OperationType = 'operationType',
   /** If true, this permission grants/denies access to all accounts (including anonymous account) */
   IncludeAllAccounts = 'includeAllAccounts',
-  /**
-   * When a Permission is created, the instance to which it grants access is assumed to be the same as the one in which it is created.
-   * This means - if this field is not provided, it will be set to the current instance by default.
-   * Some times, it is necessary to grant permission to a resource that exists in a different instance.
-   * In those cases, this field can be set to the instance ID from which the resource needs to be accessed.
-   * It is also possible to set this to the wildcard character '*' - in which case, this permission grants access to the resource from any instance.
-   * Note that wildcard can only be used to grant access, by default, access is denied to all other instances
-   * so a negative policy will have no effect when this field is set to '*'.
-   */
-  TargetInstance = 'targetInstance',
   Policies = 'policies',
   Scopes = 'scopes',
   Operations = 'operations',
@@ -9009,15 +9672,10 @@ export enum PermissionFields {
   HypiUpdated = 'hypi_updated',
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId'
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
 }
-
-export type AccountPolicyInput = {
-  hypi?: Maybe<HypiInput>;
-  accounts?: Maybe<Array<AccountInput>>;
-  name: Scalars['String'];
-  logic?: Maybe<AuthLogic>;
-};
 
 export type WorkflowSessionInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
@@ -9077,6 +9735,23 @@ export type RemoteLoginGroupByOptions = {
   /** Applies only to DateTime fields. If provided then the date is grouped to this granularity e.g. if MINUTES then the grouping will be per minute */
   dateGranularity?: Maybe<TimeUnit>;
 };
+
+/** All fields defined by StorageCounter */
+export enum StorageCounterFields {
+  Hypi = 'hypi',
+  Type = 'type',
+  Field = 'field',
+  Size = 'size',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags'
+}
 
 export type RealmPolicyGroupByOptions = {
   /** The field by which to to group the matching data */
@@ -9179,6 +9854,8 @@ export enum EmailMessageFields {
   HypiTrashed = 'hypi_trashed',
   HypiCreatedBy = 'hypi_createdBy',
   HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
   FromHypi = 'from_hypi',
   FromValue = 'from_value',
   FromType = 'from_type',
@@ -9192,6 +9869,39 @@ export enum EmailMessageFields {
   BccValue = 'bcc_value',
   BccType = 'bcc_type'
 }
+
+export type DeleteMutationVariables = Exact<{
+  arcql: Scalars['String'];
+  clearArrayReferences?: Maybe<Scalars['Boolean']>;
+}>;
+
+
+export type DeleteMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'delete'>
+);
+
+export type GetProductQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetProductQuery = (
+  { __typename?: 'Query' }
+  & { get?: Maybe<(
+    { __typename?: 'Product' }
+    & ProductFieldsFragment
+  ) | { __typename?: 'PageInfo' } | { __typename?: 'HypiResultEdge' } | { __typename?: 'HypiFilterConnection' } | { __typename?: 'HypiEnv' } | { __typename?: 'Pair' } | { __typename?: 'AggInt' } | { __typename?: 'AggFloat' } | { __typename?: 'AggOtherScalar' } | { __typename?: 'Script' } | { __typename?: 'RequestTemplate' } | { __typename?: 'NotificationCtx' } | { __typename?: 'Notification' } | { __typename?: 'URL' } | { __typename?: 'Currency' } | { __typename?: 'Coordinate' } | { __typename?: 'GeoEnvelope' } | { __typename?: 'Language' } | { __typename?: 'Address' } | { __typename?: 'PersonName' } | { __typename?: 'Phone' } | { __typename?: 'Email' } | { __typename?: 'Password' } | { __typename?: 'RemoteLogin' } | { __typename?: 'LoginAttempt' } | { __typename?: 'BruteForceDetectionOptions' } | { __typename?: 'OAuth2AuthorizedClient' } | { __typename?: 'AuthClient' } | { __typename?: 'ABACPolicy' } | { __typename?: 'ABACTag' } | { __typename?: 'Image' } | { __typename?: 'EmailVerification' } | { __typename?: 'EmailTemplate' } | { __typename?: 'EmailSendingAttempt' } | { __typename?: 'PasswordReminder' } | { __typename?: 'Webhook' } | { __typename?: 'WebhookResponse' } | { __typename?: 'LogMessage' } | { __typename?: 'GraphQLRef' } | { __typename?: 'WorkflowStepData' } | { __typename?: 'WorkflowStep' } | { __typename?: 'AccessToken' } | { __typename?: 'StorageCounter' } | { __typename?: 'PermissionDescription' } | { __typename?: 'Hypi' } | { __typename?: 'Country' } | { __typename?: 'Account' } | { __typename?: 'Person' } | { __typename?: 'Organisation' } | { __typename?: 'OAuthProvider' } | { __typename?: 'Realm' } | { __typename?: 'Group' } | { __typename?: 'Role' } | { __typename?: 'RolePolicy' } | { __typename?: 'ClientPolicy' } | { __typename?: 'TimePolicy' } | { __typename?: 'AggregatedPolicy' } | { __typename?: 'GroupPolicy' } | { __typename?: 'AccountPolicy' } | { __typename?: 'RealmPolicy' } | { __typename?: 'RealmLink' } | { __typename?: 'Permission' } | { __typename?: 'File' } | { __typename?: 'Video' } | { __typename?: 'EmailMessage' } | { __typename?: 'Workflow' } | { __typename?: 'WorkflowSession' } | { __typename?: 'Counter' } | { __typename?: 'Gauge' } | { __typename?: 'ServerlessResponse' }> }
+);
+
+export type ProductFieldsFragment = (
+  { __typename?: 'Product' }
+  & Pick<Product, 'title' | 'description'>
+  & { hypi?: Maybe<(
+    { __typename?: 'Hypi' }
+    & Pick<Hypi, 'id'>
+  )> }
+);
 
 export type UpsertMutationVariables = Exact<{
   values: HypiUpsertInputUnion;
@@ -9220,18 +9930,9 @@ export type ProductsQuery = (
       & { node: (
         { __typename?: 'Product' }
         & ProductFieldsFragment
-      ) | { __typename?: 'Hypi' } | { __typename?: 'PageInfo' } | { __typename?: 'HypiResultEdge' } | { __typename?: 'HypiFilterConnection' } | { __typename?: 'HypiEnv' } | { __typename?: 'Pair' } | { __typename?: 'AggInt' } | { __typename?: 'AggFloat' } | { __typename?: 'AggOtherScalar' } | { __typename?: 'Script' } | { __typename?: 'RequestTemplate' } | { __typename?: 'NotificationCtx' } | { __typename?: 'Notification' } | { __typename?: 'URL' } | { __typename?: 'Currency' } | { __typename?: 'Coordinate' } | { __typename?: 'GeoEnvelope' } | { __typename?: 'Language' } | { __typename?: 'Address' } | { __typename?: 'PersonName' } | { __typename?: 'Phone' } | { __typename?: 'Email' } | { __typename?: 'Password' } | { __typename?: 'RemoteLogin' } | { __typename?: 'LoginAttempt' } | { __typename?: 'BruteForceDetectionOptions' } | { __typename?: 'OAuth2AuthorizedClient' } | { __typename?: 'AuthClient' } | { __typename?: 'Image' } | { __typename?: 'EmailVerification' } | { __typename?: 'EmailTemplate' } | { __typename?: 'EmailSendingAttempt' } | { __typename?: 'PasswordReminder' } | { __typename?: 'Webhook' } | { __typename?: 'WebhookResponse' } | { __typename?: 'LogMessage' } | { __typename?: 'GraphQLRef' } | { __typename?: 'WorkflowStepData' } | { __typename?: 'WorkflowStep' } | { __typename?: 'AccessToken' } | { __typename?: 'PermissionDescription' } | { __typename?: 'Country' } | { __typename?: 'Account' } | { __typename?: 'Person' } | { __typename?: 'Organisation' } | { __typename?: 'OAuthProvider' } | { __typename?: 'Realm' } | { __typename?: 'Group' } | { __typename?: 'Role' } | { __typename?: 'RolePolicy' } | { __typename?: 'ClientPolicy' } | { __typename?: 'TimePolicy' } | { __typename?: 'AggregatedPolicy' } | { __typename?: 'GroupPolicy' } | { __typename?: 'AccountPolicy' } | { __typename?: 'RealmPolicy' } | { __typename?: 'RealmLink' } | { __typename?: 'Permission' } | { __typename?: 'File' } | { __typename?: 'Video' } | { __typename?: 'EmailMessage' } | { __typename?: 'Workflow' } | { __typename?: 'WorkflowSession' } | { __typename?: 'Counter' } | { __typename?: 'Gauge' } | { __typename?: 'ServerlessResponse' } }
+      ) | { __typename?: 'PageInfo' } | { __typename?: 'HypiResultEdge' } | { __typename?: 'HypiFilterConnection' } | { __typename?: 'HypiEnv' } | { __typename?: 'Pair' } | { __typename?: 'AggInt' } | { __typename?: 'AggFloat' } | { __typename?: 'AggOtherScalar' } | { __typename?: 'Script' } | { __typename?: 'RequestTemplate' } | { __typename?: 'NotificationCtx' } | { __typename?: 'Notification' } | { __typename?: 'URL' } | { __typename?: 'Currency' } | { __typename?: 'Coordinate' } | { __typename?: 'GeoEnvelope' } | { __typename?: 'Language' } | { __typename?: 'Address' } | { __typename?: 'PersonName' } | { __typename?: 'Phone' } | { __typename?: 'Email' } | { __typename?: 'Password' } | { __typename?: 'RemoteLogin' } | { __typename?: 'LoginAttempt' } | { __typename?: 'BruteForceDetectionOptions' } | { __typename?: 'OAuth2AuthorizedClient' } | { __typename?: 'AuthClient' } | { __typename?: 'ABACPolicy' } | { __typename?: 'ABACTag' } | { __typename?: 'Image' } | { __typename?: 'EmailVerification' } | { __typename?: 'EmailTemplate' } | { __typename?: 'EmailSendingAttempt' } | { __typename?: 'PasswordReminder' } | { __typename?: 'Webhook' } | { __typename?: 'WebhookResponse' } | { __typename?: 'LogMessage' } | { __typename?: 'GraphQLRef' } | { __typename?: 'WorkflowStepData' } | { __typename?: 'WorkflowStep' } | { __typename?: 'AccessToken' } | { __typename?: 'StorageCounter' } | { __typename?: 'PermissionDescription' } | { __typename?: 'Hypi' } | { __typename?: 'Country' } | { __typename?: 'Account' } | { __typename?: 'Person' } | { __typename?: 'Organisation' } | { __typename?: 'OAuthProvider' } | { __typename?: 'Realm' } | { __typename?: 'Group' } | { __typename?: 'Role' } | { __typename?: 'RolePolicy' } | { __typename?: 'ClientPolicy' } | { __typename?: 'TimePolicy' } | { __typename?: 'AggregatedPolicy' } | { __typename?: 'GroupPolicy' } | { __typename?: 'AccountPolicy' } | { __typename?: 'RealmPolicy' } | { __typename?: 'RealmLink' } | { __typename?: 'Permission' } | { __typename?: 'File' } | { __typename?: 'Video' } | { __typename?: 'EmailMessage' } | { __typename?: 'Workflow' } | { __typename?: 'WorkflowSession' } | { __typename?: 'Counter' } | { __typename?: 'Gauge' } | { __typename?: 'ServerlessResponse' } }
     )>> }
   ) }
-);
-
-export type ProductFieldsFragment = (
-  { __typename?: 'Product' }
-  & Pick<Product, 'title' | 'description'>
-  & { hypi?: Maybe<(
-    { __typename?: 'Hypi' }
-    & Pick<Hypi, 'id'>
-  )> }
 );
 
 export const ProductFieldsFragmentDoc = gql`
@@ -9243,6 +9944,77 @@ export const ProductFieldsFragmentDoc = gql`
   description
 }
     `;
+export const DeleteDocument = gql`
+    mutation delete($arcql: String!, $clearArrayReferences: Boolean = false) {
+  delete(
+    type: Product
+    arcql: $arcql
+    clearArrayReferences: $clearArrayReferences
+  )
+}
+    `;
+export type DeleteMutationFn = Apollo.MutationFunction<DeleteMutation, DeleteMutationVariables>;
+
+/**
+ * __useDeleteMutation__
+ *
+ * To run a mutation, you first call `useDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMutation, { data, loading, error }] = useDeleteMutation({
+ *   variables: {
+ *      arcql: // value for 'arcql'
+ *      clearArrayReferences: // value for 'clearArrayReferences'
+ *   },
+ * });
+ */
+export function useDeleteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMutation, DeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMutation, DeleteMutationVariables>(DeleteDocument, options);
+      }
+export type DeleteMutationHookResult = ReturnType<typeof useDeleteMutation>;
+export type DeleteMutationResult = Apollo.MutationResult<DeleteMutation>;
+export type DeleteMutationOptions = Apollo.BaseMutationOptions<DeleteMutation, DeleteMutationVariables>;
+export const GetProductDocument = gql`
+    query getProduct($id: String!) {
+  get(type: Product, id: $id) {
+    ...ProductFields
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
+
+/**
+ * __useGetProductQuery__
+ *
+ * To run a query within a React component, call `useGetProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetProductQuery(baseOptions: Apollo.QueryHookOptions<GetProductQuery, GetProductQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductQuery, GetProductQueryVariables>(GetProductDocument, options);
+      }
+export function useGetProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductQuery, GetProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductQuery, GetProductQueryVariables>(GetProductDocument, options);
+        }
+export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
+export type GetProductLazyQueryHookResult = ReturnType<typeof useGetProductLazyQuery>;
+export type GetProductQueryResult = Apollo.QueryResult<GetProductQuery, GetProductQueryVariables>;
 export const UpsertDocument = gql`
     mutation upsert($values: HypiUpsertInputUnion!) {
   upsert(values: $values) {

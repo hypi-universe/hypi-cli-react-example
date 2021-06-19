@@ -21,7 +21,7 @@ Login with organization name space and Authorization token from here https://hyp
 
 ```hypi init```
 
- Initialize your app and instance or refernece an existing domain
+ Initialize your app and instance or reference an existing domain
 .hypi folder will be created with app.yaml, instance.yaml and schema.graphql files
 
 ### `hypi sync`

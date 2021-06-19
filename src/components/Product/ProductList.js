@@ -1,114 +1,67 @@
-import React, { useState } from 'react';
-// import { useQuery } from '@apollo/client';
-// import { PRODUCTS_QUERY } from '../../apollo/queries/products.js'
-import { useProductsQuery, useUpsertMutation } from '../../generated/graphql'
+import React from 'react';
+import { useProductsQuery, useDeleteMutation } from '../../generated/graphql'
+
+import { Link } from "react-router-dom";
 
 const ProductsList = (props) => {
-  const [newProduct, setNewProduct] = useState(false)
-  const [productForm, setProductForm] = useState({
-    title: '',
-    description: ''
-  })
-
   const { loading, error, data } = useProductsQuery({
     variables: { arcql: '*' },
   });
-  
-  const [upsertMutation, { upsertData, upsertLoading, upsertError }] = useUpsertMutation()
-
-  const onNewProductHandler = (event) => {
-    event.preventDefault()
-    setNewProduct(true)
-  }
-
-  const inputChangedHandler = (event) => {
-    setProductForm({
-      ...productForm, [event.target.name]: event.target.value
-    })
-  }
-  const submitProductHandler = (event) => {
-    console.log('submit')
-    event.preventDefault()
-    //call the mutation to send data
-
-    upsertMutation({
-      variables: {
-        values: {
-          Product: {
-            title: productForm.title,
-            description: productForm.description
-          }
-        }
-      }
-    })
-  }
+  const [deleteMutation] = useDeleteMutation()
 
   if (loading) return <p>loading...</p>;
   if (error) return <p>{error}</p>;
 
-  if (upsertLoading) return <p>loading...</p>;
-  if (upsertError) return <p>{error}</p>;
-  if (upsertData) return <p>{upsertData}</p>;
-
-  let noProductsOutput = null
-  if (data.find.edges.length === 0) {
-    noProductsOutput = (
-      <div>
-        <p>No products found</p>
-      </div>
-    )
-  }
-  let addProductOutput = null;
-  if (newProduct) {
-    addProductOutput = (
-      <form onSubmit={submitProductHandler}>
-        <label htmlFor="title">Title</label>
-        <input
-          className="Input"
-          type="text"
-          id="title"
-          name="title"
-          value={productForm.title}
-          onChange={(event) => inputChangedHandler(event, 'title')}
-          placeholder="Title.." />
-
-        <label htmlFor="description">Description</label>
-        <input
-          className="Input"
-          type="text"
-          id="description"
-          name="description"
-          value={productForm.description}
-          onChange={inputChangedHandler}
-          placeholder="Description.." />
-
-        <button className="Button" > Submit</button>
-
-      </form>
-    )
-  } else {
-    addProductOutput = (
-      <button className="Button" onClick={onNewProductHandler}> New Product</button>
-    )
+  const handleRemove = (event, id) => {
+    console.log(id)
+    deleteMutation({
+      variables: {
+        arcql: "hypi.id = '" + id + "'"
+      }
+    })
   }
 
-  const productsOutput = data.find.edges.map(product => {
-    return (
-      <div>
-        <h1>{product.node.title}</h1>
-        <p>{product.node.description}</p>
-      </div>
-    )
-  })
+  const productsOutput = data.find.edges.length === 0 ?
+    <div>
+      <p>No products found</p>
+    </div>
+    : data.find.edges.map((product, index) => {
+      return (
+        <div key={product.node.hypi.id}>
+          <li key={index} >
+            {product.node.title}
+          </li>
+          <button type="button" className={"btn"} onClick={(event) => handleRemove(event, product.node.hypi.id)}>
+            Remove
+          </button>
+          <Link
+            to={"/products/" + product.node.hypi.id}
+            className="badge badge-warning"
+          >
+            <button type="button" className={"btn"}>
+              Edit
+            </button>
+          </Link>
+        </div>
+      )
+    })
 
-  //   <p>
-  //   Products List
-  // </p>
+
   return (
     <div>
-      {noProductsOutput}
-      {productsOutput}
-      {addProductOutput}
+      <Link
+        to={"/add/"}
+        className="badge badge-warning"
+      >
+        <button className="btn btn-success"> New Product</button>
+      </Link>
+      <div className="col-md-6">
+        <hr />
+        <h4>Tutorials List</h4>
+        <ul className="list-group">
+          {productsOutput}
+        </ul>
+      </div>
     </div>
   )
 };
