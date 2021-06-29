@@ -838,6 +838,60 @@ export enum RolePolicyFields {
   HypiTags = 'hypi_tags'
 }
 
+export type WorkflowStepDataInput = {
+  hypi?: Maybe<HypiInput>;
+  stepName: Scalars['String'];
+  stepResult: Scalars['Any'];
+};
+
+/** All fields defined by Workflow */
+export enum WorkflowFields {
+  Hypi = 'hypi',
+  Name = 'name',
+  /**
+   * If present, this is a cron schedule to automatically execute this Workflow
+   * The syntax as defined at https://www.manpagez.com/man/5/crontab/
+   * NOTE: The special strings @hourly, @daily etc are NOT supported
+   */
+  CronSchedule = 'cronSchedule',
+  /**
+   * An ArcQL query to find the account e.g. hypi.id = 'user123' to find by id or username = 'blah' to find by username
+   * If present, execution of the steps in the Workflow will be done as this account
+   * If not specified, it defaults to the account making the request
+   */
+  ExecAs = 'execAs',
+  Async = 'async',
+  /** If present AND true, all steps in this block are executed at the same time. */
+  Parallel = 'parallel',
+  /**
+   * Specifies the the max time an async task should be allowed to execute. When this time has elapsed the task will be killed.
+   * The format is ISO8601 durations https://en.wikipedia.org/wiki/ISO_8601#Durations
+   * e.g. P1M is 1 month and PT1M is 1 minute
+   */
+  MaxExecutionTime = 'maxExecutionTime',
+  RepeatN = 'repeatN',
+  EvaluateIf = 'evaluateIf',
+  RepeatIf = 'repeatIf',
+  Steps = 'steps',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
+  HypiTags = 'hypi_tags',
+  EvaluateIfHypi = 'evaluateIf_hypi',
+  EvaluateIfType = 'evaluateIf_type',
+  EvaluateIfField = 'evaluateIf_field',
+  EvaluateIfSelection = 'evaluateIf_selection',
+  RepeatIfHypi = 'repeatIf_hypi',
+  RepeatIfType = 'repeatIf_type',
+  RepeatIfField = 'repeatIf_field',
+  RepeatIfSelection = 'repeatIf_selection'
+}
+
 /** All fields defined by ABACPolicy */
 export enum AbacPolicyFields {
   Hypi = 'hypi',
@@ -894,60 +948,6 @@ export enum AbacPolicyFields {
   HypiInstanceId = 'hypi_instanceId',
   HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
   HypiTags = 'hypi_tags'
-}
-
-export type WorkflowStepDataInput = {
-  hypi?: Maybe<HypiInput>;
-  stepName: Scalars['String'];
-  stepResult: Scalars['Any'];
-};
-
-/** All fields defined by Workflow */
-export enum WorkflowFields {
-  Hypi = 'hypi',
-  Name = 'name',
-  /**
-   * If present, this is a cron schedule to automatically execute this Workflow
-   * The syntax as defined at https://www.manpagez.com/man/5/crontab/
-   * NOTE: The special strings @hourly, @daily etc are NOT supported
-   */
-  CronSchedule = 'cronSchedule',
-  /**
-   * An ArcQL query to find the account e.g. hypi.id = 'user123' to find by id or username = 'blah' to find by username
-   * If present, execution of the steps in the Workflow will be done as this account
-   * If not specified, it defaults to the account making the request
-   */
-  ExecAs = 'execAs',
-  Async = 'async',
-  /** If present AND true, all steps in this block are executed at the same time. */
-  Parallel = 'parallel',
-  /**
-   * Specifies the the max time an async task should be allowed to execute. When this time has elapsed the task will be killed.
-   * The format is ISO8601 durations https://en.wikipedia.org/wiki/ISO_8601#Durations
-   * e.g. P1M is 1 month and PT1M is 1 minute
-   */
-  MaxExecutionTime = 'maxExecutionTime',
-  RepeatN = 'repeatN',
-  EvaluateIf = 'evaluateIf',
-  RepeatIf = 'repeatIf',
-  Steps = 'steps',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId',
-  HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
-  HypiTags = 'hypi_tags',
-  EvaluateIfHypi = 'evaluateIf_hypi',
-  EvaluateIfType = 'evaluateIf_type',
-  EvaluateIfField = 'evaluateIf_field',
-  EvaluateIfSelection = 'evaluateIf_selection',
-  RepeatIfHypi = 'repeatIf_hypi',
-  RepeatIfType = 'repeatIf_type',
-  RepeatIfField = 'repeatIf_field',
-  RepeatIfSelection = 'repeatIf_selection'
 }
 
 export type AbacPolicyInputOpt = {
@@ -3303,6 +3303,11 @@ export type AuthClientInputOpt = {
   secret?: Maybe<Scalars['String']>;
 };
 
+export type ItemInputOpt = {
+  hypi?: Maybe<HypiInputOpt>;
+  title?: Maybe<Scalars['String']>;
+};
+
 export type Trigger = {
   /**
    * Executes before the target function. Typically used for validation to prevent execution of a function.
@@ -4313,22 +4318,6 @@ export type GaugeGroupByOptions = {
   dateGranularity?: Maybe<TimeUnit>;
 };
 
-export type WorkflowAsyncInputOpt = {
-  execAs?: Maybe<Scalars['String']>;
-  maxExecutionTime?: Maybe<Scalars['String']>;
-  fn?: Maybe<GraphQlRefInputOpt>;
-  repeatN?: Maybe<Scalars['Int']>;
-  steps?: Maybe<Array<Maybe<WorkflowStepInputOpt>>>;
-  cronSchedule?: Maybe<Scalars['String']>;
-  repeatIf?: Maybe<GraphQlRefInputOpt>;
-  async?: Maybe<Scalars['Boolean']>;
-  parallel?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  hypi?: Maybe<HypiInputOpt>;
-  evaluateIf?: Maybe<GraphQlRefInputOpt>;
-  order?: Maybe<Scalars['Int']>;
-};
-
 /** All fields defined by AggInt */
 export enum AggIntFields {
   Hypi = 'hypi',
@@ -4355,6 +4344,22 @@ export enum AggIntFields {
   /** The value of the aggregated field for each group */
   GroupValuesValue = 'groupValues_value'
 }
+
+export type WorkflowAsyncInputOpt = {
+  execAs?: Maybe<Scalars['String']>;
+  maxExecutionTime?: Maybe<Scalars['String']>;
+  fn?: Maybe<GraphQlRefInputOpt>;
+  repeatN?: Maybe<Scalars['Int']>;
+  steps?: Maybe<Array<Maybe<WorkflowStepInputOpt>>>;
+  cronSchedule?: Maybe<Scalars['String']>;
+  repeatIf?: Maybe<GraphQlRefInputOpt>;
+  async?: Maybe<Scalars['Boolean']>;
+  parallel?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  hypi?: Maybe<HypiInputOpt>;
+  evaluateIf?: Maybe<GraphQlRefInputOpt>;
+  order?: Maybe<Scalars['Int']>;
+};
 
 export type WorkflowTimedInputOpt = {
   execAs?: Maybe<Scalars['String']>;
@@ -7125,6 +7130,11 @@ export enum CurrencyScalarFields {
   HypiInstanceId = 'hypi_instanceId'
 }
 
+export type ItemInput = {
+  hypi?: Maybe<HypiInput>;
+  title: Scalars['String'];
+};
+
 export type CurrencyAggs = {
   __typename?: 'CurrencyAggs';
   name?: Maybe<AggOtherScalar>;
@@ -7938,6 +7948,11 @@ export type WorkflowSessionInput = {
   data?: Maybe<Array<WorkflowStepDataInput>>;
 };
 
+export type Item = {
+  hypi?: Maybe<Hypi>;
+  title: Scalars['String'];
+};
+
 /** Scalar fields defined by WorkflowStep */
 export enum WorkflowStepScalarFields {
   /** A name that can be used to reference or trigger this step */
@@ -8114,12 +8129,15 @@ export type WebhookResponseInputOpt = {
   body?: Maybe<Scalars['Json']>;
 };
 
-/** All fields defined by ABACTag */
-export enum AbacTagFields {
+/** All fields defined by AggregatedPolicy */
+export enum AggregatedPolicyFields {
   Hypi = 'hypi',
-  Key = 'key',
-  /** If provided then policy assertion can be made against it */
-  Value = 'value',
+  /** defines how the policy arrives at a decision, the options are: */
+  DecisionStrategy = 'decisionStrategy',
+  Name = 'name',
+  /** Positive` or `Negative */
+  Logic = 'logic',
+  Policies = 'policies',
   HypiId = 'hypi_id',
   HypiImpl = 'hypi_impl',
   HypiCreated = 'hypi_created',
@@ -8131,15 +8149,12 @@ export enum AbacTagFields {
   HypiTags = 'hypi_tags'
 }
 
-/** All fields defined by AggregatedPolicy */
-export enum AggregatedPolicyFields {
+/** All fields defined by ABACTag */
+export enum AbacTagFields {
   Hypi = 'hypi',
-  /** defines how the policy arrives at a decision, the options are: */
-  DecisionStrategy = 'decisionStrategy',
-  Name = 'name',
-  /** Positive` or `Negative */
-  Logic = 'logic',
-  Policies = 'policies',
+  Key = 'key',
+  /** If provided then policy assertion can be made against it */
+  Value = 'value',
   HypiId = 'hypi_id',
   HypiImpl = 'hypi_impl',
   HypiCreated = 'hypi_created',
@@ -9011,26 +9026,6 @@ export type EmailVerificationGroupByOptions = {
   dateGranularity?: Maybe<TimeUnit>;
 };
 
-/** Scalar fields defined by AggInt */
-export enum AggIntScalarFields {
-  Avg = 'avg',
-  Count = 'count',
-  Max = 'max',
-  Min = 'min',
-  Sum = 'sum',
-  HypiId = 'hypi_id',
-  HypiImpl = 'hypi_impl',
-  HypiCreated = 'hypi_created',
-  HypiUpdated = 'hypi_updated',
-  HypiTrashed = 'hypi_trashed',
-  HypiCreatedBy = 'hypi_createdBy',
-  HypiInstanceId = 'hypi_instanceId',
-  /** The value of the aggregated field for each group */
-  GroupValuesKey = 'groupValues_key',
-  /** The value of the aggregated field for each group */
-  GroupValuesValue = 'groupValues_value'
-}
-
 /** All fields defined by Language */
 export enum LanguageFields {
   Hypi = 'hypi',
@@ -9050,6 +9045,26 @@ export enum LanguageFields {
   HypiInstanceId = 'hypi_instanceId',
   HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
   HypiTags = 'hypi_tags'
+}
+
+/** Scalar fields defined by AggInt */
+export enum AggIntScalarFields {
+  Avg = 'avg',
+  Count = 'count',
+  Max = 'max',
+  Min = 'min',
+  Sum = 'sum',
+  HypiId = 'hypi_id',
+  HypiImpl = 'hypi_impl',
+  HypiCreated = 'hypi_created',
+  HypiUpdated = 'hypi_updated',
+  HypiTrashed = 'hypi_trashed',
+  HypiCreatedBy = 'hypi_createdBy',
+  HypiInstanceId = 'hypi_instanceId',
+  /** The value of the aggregated field for each group */
+  GroupValuesKey = 'groupValues_key',
+  /** The value of the aggregated field for each group */
+  GroupValuesValue = 'groupValues_value'
 }
 
 export type Policy = {
@@ -9640,6 +9655,13 @@ export type OAuth2AuthorizedClientInput = {
   refreshToken?: Maybe<Scalars['String']>;
 };
 
+export type AccountPolicyInput = {
+  hypi?: Maybe<HypiInput>;
+  accounts?: Maybe<Array<AccountInput>>;
+  name: Scalars['String'];
+  logic?: Maybe<AuthLogic>;
+};
+
 /** All fields defined by Permission */
 export enum PermissionFields {
   Hypi = 'hypi',
@@ -9670,13 +9692,6 @@ export enum PermissionFields {
   HypiHypiHiddenTags = 'hypi_hypi_hidden_tags',
   HypiTags = 'hypi_tags'
 }
-
-export type AccountPolicyInput = {
-  hypi?: Maybe<HypiInput>;
-  accounts?: Maybe<Array<AccountInput>>;
-  name: Scalars['String'];
-  logic?: Maybe<AuthLogic>;
-};
 
 export type WorkflowSessionInputOpt = {
   hypi?: Maybe<HypiInputOpt>;
