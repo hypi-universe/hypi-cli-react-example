@@ -1,5 +1,5 @@
 {
-  "name": "test-app",
+  "name": "a-complete-angular-example-to-use-hypi-cli",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -49,5 +49,7 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.12",
     "raw.macro": "^0.4.2"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
