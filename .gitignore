@@ -24,3 +24,5 @@ yarn-error.log*
 
 
 /.hypi
+# Local Netlify folder
+.netlify
