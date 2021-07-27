@@ -1,0 +1,13 @@
+website: reactj2.com
+name: reactjs2
+label: reacths2
+releases:
+  - name: latest
+    schema:
+      types: schema.graphql
+    status: PUBLISHED
+    notes: latest version
+    hypi:
+      id: 01F9GC1A6MBABC8M2MWYZ7HB7G
+hypi:
+  id: 01F9GC1A6HDMW08JFRVPJ6CGGS
