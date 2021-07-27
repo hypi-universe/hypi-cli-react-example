@@ -1,3 +1,4 @@
+console.log(process.env.HYPI_DOMAIN)
 const data = {
   default_api_domain: 'https://api.hypi.app', 
   domain: process.env.HYPI_DOMAIN,
