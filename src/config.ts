@@ -1,6 +1,6 @@
 const data = {
-  default_api_domain: '', // api_domain like https://api.my-onpremise-domain.com
-  domain: '', // domain fromn file .hypi/instance.yaml
-  token: '', // access token 
+  default_api_domain: 'https://api.hypi.app', 
+  domain: process.env.DOMAIN,
+  token: process.env.TOEKN
 };
 export default data;
