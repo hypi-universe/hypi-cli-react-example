@@ -9,7 +9,6 @@
 
 ## Available commands
 
-
 ### `hypi login` 
 
 ```hypi login``` 
