@@ -1,4 +1,4 @@
-console.log(process.env.HYPI_DOMAIN)
+console.log(process.env.REACT_APP_HYPI_TOEKN)
 const data = {
   default_api_domain: 'https://api.hypi.app', 
   domain: process.env.REACT_APP_HYPI_DOMAIN,
