@@ -3,7 +3,7 @@ const fs = require('fs')
 //new
 var data = fs.readFileSync('./src/config.ts'); //read existing contents into data
 var fd = fs.openSync('./src/config.ts', 'w+');
-var buffer = Buffer.alloc() new Buffer(`const HYPI_DOMAIN='${process.env.HYPI_DOMAIN}'\n`);
+var buffer = new Buffer(`const HYPI_DOMAIN='${process.env.HYPI_DOMAIN}'\n`);
 
 fs.writeSync(fd, buffer, 0, buffer.length, 0); //write new data
 fs.writeSync(fd, data, 0, data.length, buffer.length); //append old data
