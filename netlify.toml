@@ -1,6 +1,5 @@
 [build]
-  # command = "react-scripts build && echo $HYPI_DOMAIN > public/netlify-context.txt"
-  command = "node ./scripts/create-env.js && react-scripts build"
+  command = "react-scripts build"
   functions = "netlify/functions"
   publish = "build"
 
