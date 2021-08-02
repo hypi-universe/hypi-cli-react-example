@@ -52,6 +52,8 @@ async function run({
 
   const domain = instanceYaml.domain;
 
+  netlifyConfig.build.environment.GATSBY_HYPI_DOMAIN = domain
+
   process.env['GATSBY_HYPI_DOMAIN'] = domain
   process.env['REACT_APP_HYPI_DOMAIN'] = domain
   process.env['VUE_APP_HYPI_DOMAIN'] = domain
