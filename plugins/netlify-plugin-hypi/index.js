@@ -52,56 +52,56 @@ async function run({
 
   const domain = instanceYaml.domain;
 
-  netlifyConfig.build.environment.GATSBY_HYPI_DOMAIN = domain
+  // netlifyConfig.build.environment.GATSBY_HYPI_DOMAIN = domain
 
-  process.env['GATSBY_HYPI_DOMAIN'] = domain
-  process.env['REACT_APP_HYPI_DOMAIN'] = domain
-  process.env['VUE_APP_HYPI_DOMAIN'] = domain
-  process.env['NEXT_PUBLIC_HYPI_DOMAIN'] = domain
+  // process.env['GATSBY_HYPI_DOMAIN'] = domain
+  // process.env['REACT_APP_HYPI_DOMAIN'] = domain
+  // process.env['VUE_APP_HYPI_DOMAIN'] = domain
+  // process.env['NEXT_PUBLIC_HYPI_DOMAIN'] = domain
 
-  //write the domain to environemnt variables
-  // const token = 'gwVvAcu76qlr8wbl1r0KPDvhmYmswUCiKNrELv2S77U'
-  // const env = {
-  //   GATSBY_HYPI_DOMAIN: domain,
-  //   REACT_APP_HYPI_DOMAIN: domain,
-  //   VUE_APP_HYPI_DOMAIN: domain,
-  //   NEXT_PUBLIC_HYPI_DOMAIN: domain,
-  // }
-  // const instance = axios.create({
-  //   baseURL: 'https://api.netlify.com/api/v1/',
-  //   timeout: 1000,
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //     accept: 'application/json',
-  //     'content-type': 'application/json',
-  //   }
-  // });
+  // write the domain to environemnt variables
+  const token = 'gwVvAcu76qlr8wbl1r0KPDvhmYmswUCiKNrELv2S77U'
+  const env = {
+    GATSBY_HYPI_DOMAIN: domain,
+    REACT_APP_HYPI_DOMAIN: domain,
+    VUE_APP_HYPI_DOMAIN: domain,
+    NEXT_PUBLIC_HYPI_DOMAIN: domain,
+  }
+  const instance = axios.create({
+    baseURL: 'https://api.netlify.com/api/v1/',
+    timeout: 1000,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      accept: 'application/json',
+      'content-type': 'application/json',
+    }
+  });
 
-  // status.show({ summary: 'Call api to get site' })
-  // const response = await instance.get(`/sites/${SITE_ID}`)
-  // const site = response.data;
+  status.show({ summary: 'Call api to get site' })
+  const response = await instance.get(`/sites/${SITE_ID}`)
+  const site = response.data;
 
-  // status.show({ summary: 'Call api to save new environment variables' })
-  // try {
-  //   await instance.patch(`/sites/${SITE_ID}`, {
-  //     build_settings: {
-  //       env: { ...site.build_settings.env, ...env }
-  //     }
-  //   })
-  // } catch (error) {
-  //   build.failBuild('Error message', error)
-  // }
-  // // write the domain value to config.json file for non prefix frameworks
-  // const json = JSON.stringify({
-  //   HYPI_DOMAIN: domain
-  // })
+  status.show({ summary: 'Call api to save new environment variables' })
+  try {
+    await instance.patch(`/sites/${SITE_ID}`, {
+      build_settings: {
+        env: { ...site.build_settings.env, ...env }
+      }
+    })
+  } catch (error) {
+    build.failBuild('Error message', error)
+  }
+  // write the domain value to config.json file for non prefix frameworks
+  const json = JSON.stringify({
+    HYPI_DOMAIN: domain
+  })
 
-  // try {
-  //   fs.writeFileSync('./config.json', json)
-  // }
-  // catch (error) {
-  //   build.failBuild('Error message', error)
-  // }
+  try {
+    fs.writeFileSync('./config.json', json)
+  }
+  catch (error) {
+    build.failBuild('Error message', error)
+  }
 }
 module.exports = {
   async onPreBuild(args) {
