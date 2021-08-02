@@ -51,10 +51,8 @@ async function run({
   status.show({ summary: 'Parsed .hypi.instance.yaml file' })
 
   const domain = instanceYaml.domain;
-  //write the domain to environemnt variables
-  // netlifyConfig.build.environment.HYPI_DOMAIN = domain
-  // process.env['HYPI_DOMAIN'] = domain
 
+  //write the domain to environemnt variables
   const token = 'gwVvAcu76qlr8wbl1r0KPDvhmYmswUCiKNrELv2S77U'
   const env = {
     GATSBY_HYPI_DOMAIN: domain,
@@ -78,13 +76,11 @@ async function run({
 
   status.show({ summary: 'Call api to save new environment variables' })
   try {
-    const resposneP = await instance.patch(`/sites/${SITE_ID}`, {
+    await instance.patch(`/sites/${SITE_ID}`, {
       build_settings: {
         env: { ...site.build_settings.env, ...env }
       }
     })
-    const data = await resposneP.data
-    console.log(data)
   } catch (error) {
     build.failBuild('Error message', error)
   }
