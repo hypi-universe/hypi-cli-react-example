@@ -82,7 +82,7 @@ async function run({
       envVars = platformEnvVariables
     }
     data['context.production.environment'] = envVars
-    // fs.writeFileSync('netlify.toml', TOML.stringify(data));
+    fs.writeFileSync('netlify.toml', TOML.stringify(data));
   } catch (e) {
     console.error("netlify.toml Parsing error on line " + e.line + ", column " + e.column +
       ": " + e.message);
