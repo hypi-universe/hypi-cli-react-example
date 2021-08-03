@@ -7,4 +7,7 @@ publish = "build"
 package = "/plugins/netlify-plugin-hypi"
 
 [context.production.environment]
+GATSBY_HYPI_DOMAIN = "rapacity.apps.hypi.app"
 REACT_APP_HYPI_DOMAIN = "rapacity.apps.hypi.app"
+VUE_APP_HYPI_DOMAIN = "rapacity.apps.hypi.app"
+NEXT_PUBLIC_HYPI_DOMAIN = "rapacity.apps.hypi.app"
