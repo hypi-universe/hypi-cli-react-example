@@ -6,5 +6,5 @@ publish = "build"
 [[plugins]]
 package = "/plugins/netlify-plugin-hypi"
 
-[context.production]
-  environment= { REACT_APP_HYPI_DOMAIN = "rapacity.apps.hypi.app" }
+[context.production.environment]
+  REACT_APP_HYPI_DOMAIN = "rapacity.apps.hypi.app"
