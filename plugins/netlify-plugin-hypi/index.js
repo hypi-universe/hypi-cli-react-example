@@ -91,6 +91,9 @@ async function run({
       data['context.production.environment'] = envVars
     }
     fs.writeFileSync('netlify.toml', TOML.stringify(data).replace("[\"context.production.environment\"]", "[context.production.environment]"));
+
+    await run.command('git add netlify.toml && git commit -m "[skip ci] Set Hypi domain && git push origin $BRANCH"')
+
   } catch (e) {
     console.error("netlify.toml Parsing error on line " + e.line + ", column " + e.column +
       ": " + e.message);
