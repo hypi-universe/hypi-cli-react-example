@@ -68,8 +68,7 @@ async function run({
   //Parse the netlify.yaml and update environment variables
   try {
     var data = TOML.parse(netlifyToml);
-    let envVars = data['context.production.environment'];
-
+    let envVars = data.context?.production?.environment;
     if (envVars) {
       if (Object.keys(envVars).length === 0) {
         envVars = platformEnvVariables
@@ -81,8 +80,13 @@ async function run({
     } else {
       envVars = platformEnvVariables
     }
-    data['context.production.environment'] = envVars
-    fs.writeFileSync('netlify.toml', TOML.stringify(data));
+
+    if (data.context?.production?.environment) {
+      data.context.production.environment = envVars
+    } else {
+      data['context.production.environment'] = envVars
+    }
+    fs.writeFileSync('netlify.toml', TOML.stringify(data).replace("[\"context.production.environment\"]", "[context.production.environment]"));
   } catch (e) {
     console.error("netlify.toml Parsing error on line " + e.line + ", column " + e.column +
       ": " + e.message);
