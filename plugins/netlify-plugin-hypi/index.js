@@ -68,7 +68,8 @@ async function run({
   //Parse the netlify.yaml and update environment variables
   try {
     var data = TOML.parse(netlifyToml);
-    let envVars = data.context?.production?.environment;
+    status.show({ summary: data.toString() })
+    let envVars = data.context.production.environment ? data.context.production.environment : null;
     if (envVars) {
       if (Object.keys(envVars).length === 0) {
         envVars = platformEnvVariables
