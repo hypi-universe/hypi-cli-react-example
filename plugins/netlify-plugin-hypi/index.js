@@ -69,7 +69,10 @@ async function run({
   try {
     var data = TOML.parse(netlifyToml);
     status.show({ summary: data.toString() })
-    let envVars = data.context.production.environment ? data.context.production.environment : null;
+    
+    const envVarsExists = checkNested(data, 'context', 'production', 'environment')? true : false
+    let envVars = envVarsExists ? data.context.production.environment : null;
+    
     if (envVars) {
       if (Object.keys(envVars).length === 0) {
         envVars = platformEnvVariables
@@ -82,7 +85,7 @@ async function run({
       envVars = platformEnvVariables
     }
 
-    if (data.context?.production?.environment) {
+    if (envVarsExists) {
       data.context.production.environment = envVars
     } else {
       data['context.production.environment'] = envVars
@@ -104,6 +107,16 @@ async function run({
   catch (error) {
     build.failBuild('Error message', error)
   }
+}
+function checkNested(obj /*, level1, level2, ... levelN*/ ) {
+  let args = Array.prototype.slice.call(arguments, 1);
+  for (var i = 0; i < args.length; i++) {
+    if (!obj || !obj.hasOwnProperty(args[i])) {
+      return false;
+    }
+    obj = obj[args[i]];
+  }
+  return true;
 }
 module.exports = {
   async onPreBuild(args) {
