@@ -66,6 +66,8 @@ async function run({
   // }
 
   process.env['REACT_APP_HYPI_DOMAIN'] = domain
+  process.env['HYPI_DOMAIN'] = domain
+
 
   //Parse the netlify.yaml and update environment variables
   // try {
