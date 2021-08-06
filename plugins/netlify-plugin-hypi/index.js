@@ -65,8 +65,11 @@ async function run({
   //   NEXT_PUBLIC_HYPI_DOMAIN: domain,
   // }
 
-  process.env['REACT_APP_HYPI_DOMAIN'] = domain
   process.env['HYPI_DOMAIN'] = domain
+  process.env['GATSBY_HYPI_DOMAIN'] = domain
+  process.env['REACT_APP_HYPI_DOMAIN'] = domain
+  process.env['VUE_APP_HYPI_DOMAIN'] = domain
+  process.env['NEXT_PUBLIC_HYPI_DOMAIN'] = domain
 
 
   //Parse the netlify.yaml and update environment variables
