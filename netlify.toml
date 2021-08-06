@@ -7,7 +7,7 @@ publish = "build"
 package = "/plugins/netlify-plugin-hypi"
 
 [[plugins]]
-package = 'netlify-plugin-env'
+package = 'netlify-plugin-contextual-env'
   [plugins.inputs]
   mode = 'prefix'
   
