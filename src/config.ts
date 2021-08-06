@@ -7,3 +7,4 @@ const data = {
   domain: process.env.REACT_APP_HYPI_DOMAIN,
   token: process.env.REACT_APP_HYPI_TOEKN
 };
+export default data;
