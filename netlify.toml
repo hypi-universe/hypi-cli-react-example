@@ -6,4 +6,8 @@ publish = "build"
 [[plugins]]
 package = "/plugins/netlify-plugin-hypi"
 
-#any commi
+[[plugins]]
+package = 'netlify-plugin-env'
+  [plugins.inputs]
+  mode = 'prefix'
+  
