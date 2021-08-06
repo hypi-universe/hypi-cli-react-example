@@ -55,83 +55,26 @@ async function run({
   const domain = instanceYaml.domain;
 
   status.show({ summary: 'Read netlify.toml file' })
-  // const netlifyToml = fs.readFileSync('netlify.toml', 'utf-8')
 
-  // const platformEnvVariables =
-  // {
-  //   GATSBY_HYPI_DOMAIN: domain,
-  //   REACT_APP_HYPI_DOMAIN: domain,
-  //   VUE_APP_HYPI_DOMAIN: domain,
-  //   NEXT_PUBLIC_HYPI_DOMAIN: domain,
-  // }
-
-  process.env['TEST'] = domain
-  process.env['REACT_APP_TEST'] = domain
-
+  //write platform environment variables
   process.env['GATSBY_HYPI_DOMAIN'] = domain
   process.env['REACT_APP_HYPI_DOMAIN'] = domain
   process.env['VUE_APP_HYPI_DOMAIN'] = domain
   process.env['NEXT_PUBLIC_HYPI_DOMAIN'] = domain
 
+  // write the domain value to config.json file for non prefix frameworks
+  const json = JSON.stringify({
+    HYPI_DOMAIN: domain
+  })
 
-  //Parse the netlify.yaml and update environment variables
-  // try {
-  //   var data = TOML.parse(netlifyToml);
-  //   status.show({ summary: data.toString() })
-    
-  //   const envVarsExists = checkNested(data, 'context', 'production', 'environment')? true : false
-  //   let envVars = envVarsExists ? data.context.production.environment : null;
-    
-  //   if (envVars) {
-  //     if (Object.keys(envVars).length === 0) {
-  //       envVars = platformEnvVariables
-  //     } else {
-  //       for (let key of Object.keys(platformEnvVariables)) {
-  //         envVars[key] = platformEnvVariables[key]
-  //       }
-  //     }
-  //   } else {
-  //     envVars = platformEnvVariables
-  //   }
-
-  //   if (envVarsExists) {
-  //     data.context.production.environment = envVars
-  //   } else {
-  //     data['context.production.environment'] = envVars
-  //   }
-  //   fs.writeFileSync('netlify.toml', TOML.stringify(data).replace("[\"context.production.environment\"]", "[context.production.environment]"));
-
-  //   await run.command('git add netlify.toml')
-  //   await run.command('git commit -m "[skip ci] Set Hypi domain"')
-  //   await run.command('git push origin $BRANCH')
-
-  // } catch (e) {
-  //   console.error("netlify.toml Parsing error on line " + e.line + ", column " + e.column +
-  //     ": " + e.message);
-  // }
-
-  // // write the domain value to config.json file for non prefix frameworks
-  // const json = JSON.stringify({
-  //   HYPI_DOMAIN: domain
-  // })
-
-  // try {
-  //   fs.writeFileSync('./public/config.json', json)
-  // }
-  // catch (error) {
-  //   build.failBuild('Error message', error)
-  // }
-}
-function checkNested(obj /*, level1, level2, ... levelN*/ ) {
-  let args = Array.prototype.slice.call(arguments, 1);
-  for (var i = 0; i < args.length; i++) {
-    if (!obj || !obj.hasOwnProperty(args[i])) {
-      return false;
-    }
-    obj = obj[args[i]];
+  try {
+    fs.writeFileSync('./public/config.json', json)
   }
-  return true;
+  catch (error) {
+    build.failBuild('Error message', error)
+  }
 }
+
 module.exports = {
   async onPreBuild(args) {
     try {
